@@ -1,0 +1,21 @@
+.boxcontainer {
+    background-color: white;
+    border-radius: 10px;
+    text-align: left;
+    padding: 20px;
+    width: 24vw;
+}
+
+.boxcontainer img {
+    width: 25px;
+}
+
+.boxcontainer p {
+    font-size: 15px;
+    color: #6b7280;
+    padding-top: 3px;
+}
+
+.test {
+    font-size: 25px;
+}

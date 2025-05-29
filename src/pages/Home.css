@@ -1,0 +1,121 @@
+* {
+    margin: 0px;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+/* Header */
+.icon {
+    display: flex;
+    align-items: center;
+    margin-left: 60px
+}
+
+.auth {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 40px;
+    gap: 20px;
+}
+
+.btn {
+    font-size: 16px;
+    padding: 8px 19px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.btn-white {
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+}
+
+.btn-white:hover {
+    background-color: #f0f0f0;
+}
+
+.btn-black {
+    background-color: #1a1a1a;
+    color: white;
+}
+
+.btn-black:hover {
+    background-color: #333;
+}
+
+header {
+    display: flex;
+    border-bottom: 1px solid rgb(173, 169, 169);
+    padding: 10px;
+}
+
+/* Main */
+main {
+    text-align: center;
+    background-color: #eef3ff;
+    padding: 60px 0px;
+}
+
+.mainbtn {
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.mainbtn button {
+    padding: 12px 26px;
+}
+
+.headline {
+    font-size: 40px;
+    font-weight: 600;
+    color: #1f1f1f;
+    margin-bottom: 1rem;
+
+}
+
+.highlight {
+    color: #3b82f6;
+
+}
+
+.subtext {
+    font-size: 1.125rem;
+    color: #6b7280;
+    max-width: 700px;
+    line-height: 1.6;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 40px;
+}
+
+.feature {
+    padding-top: 80px;
+}
+
+.featuretitle {
+    font-size: 30px;
+}
+
+.cardcontainer {
+    padding-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    font-size: 10px;
+    background-color: #c0fafa;
+}
