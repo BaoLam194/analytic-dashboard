@@ -8,7 +8,7 @@ export default function Home() {
       <header>
         <nav>
           <Link to="/" className="icon">
-            <img src="../../public/vite.svg"></img>
+            <img src="/vite.svg"></img>
             <h2>Analytics</h2>
           </Link>
         </nav>
@@ -44,32 +44,32 @@ export default function Home() {
           <h1 className="featuretitle">Powerful features</h1>
           <div className="cardcontainer">
             <Card
-              source="../../public/vite.svg"
+              source="/vite.svg"
               title="Data Upload"
               description="Upload CSV and Excel files with drag-and-drop support"
             />
             <Card
-              source="../../public/vite.svg"
+              source="/vite.svg"
               title="Data Transformation"
               description="Change data types, standardize, and normalize your datasets"
             />
             <Card
-              source="../../public/vite.svg"
+              source="/vite.svg"
               title="Visualization"
               description="Create beautiful charts and graphs from your data"
             />
             <Card
-              source="../../public/vite.svg"
+              source="/vite.svg"
               title="Dataset Management"
               description="Save and manage multiple versions of your datasets"
             />
             <Card
-              source="../../public/vite.svg"
+              source="/vite.svg"
               title="User Authentication"
               description="Secure login and user management system"
             />
             <Card
-              source="../../public/vite.svg"
+              source="/vite.svg"
               title="Advanced Analytics"
               description="Statistical analysis and data insights"
             />
