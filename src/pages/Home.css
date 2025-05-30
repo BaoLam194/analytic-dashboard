@@ -7,6 +7,14 @@ a {
     text-decoration: none;
 }
 
+body {
+    background-color: #eef3ff;
+}
+
+body header {
+    background-color: #fff;
+}
+
 /* Header */
 .icon {
     display: flex;
@@ -29,6 +37,7 @@ a {
     cursor: pointer;
     border: 1px solid transparent;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    border: 1px solid black;
 }
 
 .btn-white {
@@ -59,7 +68,6 @@ header {
 /* Main */
 main {
     text-align: center;
-    background-color: #eef3ff;
     padding: 60px 0px;
 }
 

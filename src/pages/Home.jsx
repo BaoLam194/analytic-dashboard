@@ -13,10 +13,10 @@ export default function Home() {
           </Link>
         </nav>
         <div className="auth">
-          <Link to="/">
+          <Link to="/auth/login">
             <button className="btn btn-white">Log in</button>
           </Link>
-          <Link to="/">
+          <Link to="/auth/signup">
             <button className="btn btn-black">Sign up</button>
           </Link>
         </div>
