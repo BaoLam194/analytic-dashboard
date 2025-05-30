@@ -9,7 +9,7 @@ export default function Home() {
         <nav>
           <Link to="/" className="icon">
             <img src="/vite.svg"></img>
-            <h2>Analytics</h2>
+            <h2>DataLytics</h2>
           </Link>
         </nav>
         <div className="auth">

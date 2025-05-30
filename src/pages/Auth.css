@@ -7,3 +7,86 @@
     justify-content: center;
     align-items: center;
 }
+
+.bg-white {
+    background-color: #fff;
+
+}
+
+.text-left {
+    text-align: left;
+}
+
+.control-box {
+    /* To make box fix item no need care about content */
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    border-radius: 5px;
+    border: 1px solid rgb(222, 222, 222);
+    padding: 24px;
+    width: 30%;
+}
+
+
+form label,
+form input {
+    display: block;
+    margin-bottom: 6px;
+}
+
+form label {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+form input {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #d3d3d3;
+    margin-bottom: 12px;
+}
+
+form input::placeholder {
+    font-style: italic;
+}
+
+.self-center {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div>div>div {
+    margin-bottom: 15px;
+}
+
+div>div>div h2 {
+    font-size: 23px;
+}
+
+div>div p {
+    font-size: 13px;
+}
+
+div div p a {
+    color: blue;
+}
+
+.btn {
+    font-size: 13px;
+    padding: 6px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    border: 1px solid black;
+    width: 100%;
+    color: #fff;
+    background-color: black;
+}
+
+.btn:hover {
+    background-color: rgb(59, 57, 57);
+}
