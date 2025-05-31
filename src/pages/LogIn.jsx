@@ -1,13 +1,13 @@
 import { useState } from "react";
 
 export default function LogIn() {
-  const [data, setData] = useState({
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const handleChange = (e) => {
-    setData({
-      ...data,
+    setFormData({
+      ...formData,
       [e.target.name]: e.target.value,
     });
   };
@@ -18,7 +18,7 @@ export default function LogIn() {
         id="email"
         type="text"
         placeholder="Your email"
-        value={data.email}
+        value={formData.email}
         name="email"
         onChange={handleChange}
       />
@@ -28,7 +28,7 @@ export default function LogIn() {
         id="password"
         type="password"
         placeholder="Your password"
-        value={data.password}
+        value={formData.password}
         name="password"
         onChange={handleChange}
       />
