@@ -12,8 +12,8 @@ export default function LogIn() {
     });
   };
   return (
-    <form onSubmit="">
-      <label for="email">Email</label>
+    <form>
+      <label htmlFor="email">Email</label>
       <input
         id="email"
         type="text"
@@ -23,7 +23,7 @@ export default function LogIn() {
         onChange={handleChange}
       />
 
-      <label for="password">Password</label>
+      <label htmlFor="password">Password</label>
       <input
         id="password"
         type="password"
@@ -32,6 +32,9 @@ export default function LogIn() {
         name="password"
         onChange={handleChange}
       />
+      <button className="btn-auth" type="submit">
+        Log in
+      </button>
     </form>
   );
 }

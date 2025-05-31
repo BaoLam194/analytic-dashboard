@@ -2,6 +2,7 @@ import { useState } from "react";
 
 export default function SignUp() {
   const [data, setData] = useState({
+    username: "",
     email: "",
     password: "",
     conf_password: "",
@@ -14,8 +15,18 @@ export default function SignUp() {
     });
   };
   return (
-    <form onSubmit="">
-      <label for="email">Email</label>
+    <form>
+      <label htmlFor="username">Username</label>
+      <input
+        id="username"
+        type="text"
+        placeholder="Your username"
+        value={data.username}
+        name="username"
+        onChange={handleChange}
+      />
+
+      <label htmlFor="email">Email</label>
       <input
         id="email"
         type="text"
@@ -25,7 +36,7 @@ export default function SignUp() {
         onChange={handleChange}
       />
 
-      <label for="password">Password</label>
+      <label htmlFor="password">Password</label>
       <input
         id="password"
         type="password"
@@ -34,7 +45,7 @@ export default function SignUp() {
         name="password"
         onChange={handleChange}
       />
-      <label for="password">Confirm password</label>
+      <label htmlFor="password">Confirm password</label>
       <input
         id="conf_password"
         type="password"
@@ -43,6 +54,9 @@ export default function SignUp() {
         name="conf_password"
         onChange={handleChange}
       />
+      <button className="btn-auth" type="submit">
+        Create an account
+      </button>
     </form>
   );
 }
