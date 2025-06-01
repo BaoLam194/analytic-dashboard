@@ -51,7 +51,7 @@ export default function Home() {
             <Card
               source="/vite.svg"
               title="Data Transformation"
-              description="Change data types, standardize, and normalize your datasets"
+              description="Clean, format, and reshape your data to make it analysis-ready with just a few clicks"
             />
             <Card
               source="/vite.svg"
