@@ -1,18 +1,46 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import supabase from "../client";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../UserContext";
 
 export default function LogIn() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const navigate = useNavigate(); // navigate to log in
+  const { setToken } = useContext(UserContext); // to set the login token
+  console.log(formData);
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (error) throw error;
+      console.log(data);
+      setToken(data);
+      localStorage.setItem("token", JSON.stringify(data)); // Save token in localStorage
+
+      navigate("/");
+    } catch (error) {
+      alert(error.message || "Unknown error");
+      console.log("error:", error);
+    }
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <label htmlFor="email">Email</label>
       <input
         id="email"
