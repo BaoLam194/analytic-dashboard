@@ -31,8 +31,8 @@ body header {
 }
 
 .btn {
-    font-size: 16px;
-    padding: 8px 19px;
+    font-size: 14px;
+    padding: 7px 17px;
     border-radius: 8px;
     cursor: pointer;
     border: 1px solid transparent;
@@ -69,6 +69,10 @@ header {
 main {
     text-align: center;
     padding: 60px 0px;
+}
+
+main section h1 {
+    font-size: 50px;
 }
 
 .mainbtn {

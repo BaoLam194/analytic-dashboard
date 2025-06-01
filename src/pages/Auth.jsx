@@ -26,7 +26,7 @@ export default function Auth() {
             <div>
               <p className="self-center">
                 Don't have an account?
-                <Link to="/auth/login"> Sign up</Link>
+                <Link to="/auth/signup"> Sign up</Link>
               </p>
             </div>
           </>
@@ -47,9 +47,6 @@ export default function Auth() {
             </div>
           </>
         )}
-        <button className="btn">
-          {name === "login" ? "Log in" : "Create account"}
-        </button>
       </div>
     </div>
   );

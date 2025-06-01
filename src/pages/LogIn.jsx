@@ -1,37 +1,40 @@
 import { useState } from "react";
 
 export default function LogIn() {
-  const [data, setData] = useState({
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const handleChange = (e) => {
-    setData({
-      ...data,
+    setFormData({
+      ...formData,
       [e.target.name]: e.target.value,
     });
   };
   return (
-    <form onSubmit="">
-      <label for="email">Email</label>
+    <form>
+      <label htmlFor="email">Email</label>
       <input
         id="email"
         type="text"
         placeholder="Your email"
-        value={data.email}
+        value={formData.email}
         name="email"
         onChange={handleChange}
       />
 
-      <label for="password">Password</label>
+      <label htmlFor="password">Password</label>
       <input
         id="password"
         type="password"
         placeholder="Your password"
-        value={data.password}
+        value={formData.password}
         name="password"
         onChange={handleChange}
       />
+      <button className="btn-auth" type="submit">
+        Log in
+      </button>
     </form>
   );
 }
