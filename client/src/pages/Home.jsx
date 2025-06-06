@@ -1,48 +1,61 @@
-import "./Home.css";
+import styles from "./Home.module.css";
 import { Link } from "react-router-dom";
 import Card from "../components/Card";
 
+// This page is for the introduction / not-logged-in view
 export default function Home() {
   return (
     <>
       <header>
         <nav>
-          <Link to="/" className="icon">
-            <img src="/vite.svg"></img>
+          <Link to="/" className={styles.icon}>
+            <img src="/vite.svg" alt="logo" />
             <h2>DataLytics</h2>
           </Link>
         </nav>
-        <div className="auth">
+        <div className={styles.auth}>
           <Link to="/auth/login">
-            <button className="btn btn-white">Log in</button>
+            <button className={`${styles.btn} ${styles["btn-white"]}`}>
+              Log in
+            </button>
           </Link>
           <Link to="/auth/signup">
-            <button className="btn btn-black">Sign up</button>
+            <button className={`${styles.btn} ${styles["btn-black"]}`}>
+              Sign up
+            </button>
           </Link>
         </div>
       </header>
+
       <main>
-        <section className="headline">
+        <section className={styles.headline}>
           <h1>
-            Transform Your Data Into <span className="highlight">Insights</span>
+            Transform Your Data Into{" "}
+            <span className={styles.highlight}>Insights</span>
           </h1>
-          <p className="subtext">
+          <p className={styles.subtext}>
             Upload, clean, transform, and visualize your data with our powerful
             analytics platform. Support for CSV and Excel files with advanced
             data manipulation tools.
           </p>
         </section>
-        <section className="mainbtn">
+
+        <section className={styles.mainbtn}>
           <Link to="/">
-            <button className="btn btn-black">Get started now!</button>
+            <button className={`${styles.btn} ${styles["btn-black"]}`}>
+              Get started now!
+            </button>
           </Link>
           <Link to="/">
-            <button className="btn btn-white">View demo</button>
+            <button className={`${styles.btn} ${styles["btn-white"]}`}>
+              View demo
+            </button>
           </Link>
         </section>
-        <section className="feature">
-          <h1 className="featuretitle">Powerful features</h1>
-          <div className="cardcontainer">
+
+        <section className={styles.feature}>
+          <h1 className={styles.featuretitle}>Powerful features</h1>
+          <div className={styles.cardcontainer}>
             <Card
               source="/vite.svg"
               title="Data Upload"
@@ -76,6 +89,7 @@ export default function Home() {
           </div>
         </section>
       </main>
+
       <footer>Copyright@Orbital2025</footer>
     </>
   );

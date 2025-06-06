@@ -1,5 +1,6 @@
+import styles from "./Auth.module.css";
 import { useState } from "react";
-import supabase from "../client";
+import supabase from "../../client";
 import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
@@ -44,8 +45,8 @@ export default function SignUp() {
   return (
     <>
       {loading && (
-        <div className="popup-overlay">
-          <div className="popup">
+        <div className={styles["popup-overlay"]}>
+          <div className={styles.popup}>
             <p>{message}</p>
             <button
               onClick={() => {
@@ -93,7 +94,9 @@ export default function SignUp() {
           {formData.password === formData.conf_password ? (
             ""
           ) : (
-            <span className="error-text">Please use the same password</span>
+            <span className={styles["error-text"]}>
+              Please use the same password
+            </span>
           )}
         </label>
         <input
@@ -104,10 +107,10 @@ export default function SignUp() {
           name="conf_password"
           onChange={handleChange}
           className={
-            formData.password === formData.conf_password ? "" : "error"
+            formData.password === formData.conf_password ? "" : styles.error
           }
         />
-        <button className="btn-auth" type="submit" disabled={loading}>
+        <button className={styles["btn-auth"]} type="submit" disabled={loading}>
           Create an account
         </button>
       </form>

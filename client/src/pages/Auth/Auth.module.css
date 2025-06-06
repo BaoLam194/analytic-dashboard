@@ -10,7 +10,6 @@
 
 .bg-white {
     background-color: #fff;
-
 }
 
 .text-left {
@@ -22,31 +21,30 @@
     display: inline-block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 47px;
-    border-radius: 5px;
+    margin-top: 48px;
+    border-radius: 6px;
     border: 1px solid rgb(222, 222, 222);
-    padding: 24px;
+    padding: 30px;
     width: 30%;
 }
-
 
 form label,
 form input {
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 
 form label {
-    font-size: 15px;
+    font-size: 19px;
     font-weight: 600;
 }
 
 form input {
     width: 100%;
-    border-radius: 5px;
+    border-radius: 6px;
     border: 1px solid #d3d3d3;
-    margin-bottom: 12px;
-    padding: 4px;
+    margin-bottom: 15px;
+    padding: 8px;
 }
 
 form input::placeholder {
@@ -58,16 +56,15 @@ form input:focus {
 }
 
 form input.error {
-    border: 3px solid red;
+    border: 4px solid red;
     background-color: #ffafaf;
 }
 
 .error-text {
     color: red;
-    font-size: 80%;
+    font-size: 1rem;
     font-style: italic;
 }
-
 
 .popup-overlay {
     position: fixed;
@@ -84,8 +81,8 @@ form input.error {
 
 .popup {
     background: white;
-    padding: 20px 30px;
-    border-radius: 8px;
+    padding: 25px 38px;
+    border-radius: 10px;
     text-align: center;
 }
 
@@ -96,15 +93,15 @@ form input.error {
 }
 
 div>div>div {
-    margin-bottom: 15px;
+    margin-bottom: 19px;
 }
 
 div>div>div h2 {
-    font-size: 23px;
+    font-size: 29px;
 }
 
 div>div p {
-    font-size: 13px;
+    font-size: 16px;
 }
 
 div div p a {
@@ -112,9 +109,9 @@ div div p a {
 }
 
 .btn-auth {
-    font-size: 13px;
-    padding: 6px 16px;
-    border-radius: 4px;
+    font-size: 16px;
+    padding: 8px 20px;
+    border-radius: 5px;
     cursor: pointer;
     border: 1px solid transparent;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;

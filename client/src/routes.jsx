@@ -1,5 +1,5 @@
 import ErrorPage from "./pages/ErrorPage";
-import Auth from "./pages/Auth";
+import Auth from "./pages/Auth/Auth";
 import ProtectedRoute from "./ProtectedRoute"; // protected route for dashboard
 
 // this is for testing

@@ -19,21 +19,21 @@ body header {
 .icon {
     display: flex;
     align-items: center;
-    margin-left: 60px
+    margin-left: 75px;
 }
 
 .auth {
     display: flex;
     align-items: center;
     margin-left: auto;
-    margin-right: 40px;
-    gap: 20px;
+    margin-right: 50px;
+    gap: 25px;
 }
 
 .btn {
-    font-size: 14px;
-    padding: 7px 17px;
-    border-radius: 8px;
+    font-size: 18px;
+    padding: 9px 21px;
+    border-radius: 10px;
     cursor: pointer;
     border: 1px solid transparent;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;
@@ -62,72 +62,70 @@ body header {
 header {
     display: flex;
     border-bottom: 1px solid rgb(173, 169, 169);
-    padding: 10px;
+    padding: 13px;
 }
 
 /* Main */
 main {
     text-align: center;
-    padding: 60px 0px;
+    padding: 75px 0px;
 }
 
 main section h1 {
-    font-size: 50px;
+    font-size: 63px;
 }
 
 .mainbtn {
     display: flex;
-    gap: 60px;
+    gap: 75px;
     justify-content: center;
-    padding-top: 20px;
+    padding-top: 25px;
 }
 
 .mainbtn button {
-    padding: 12px 26px;
+    padding: 15px 33px;
 }
 
 .headline {
-    font-size: 40px;
+    font-size: 50px;
     font-weight: 600;
     color: #1f1f1f;
     margin-bottom: 1rem;
-
 }
 
 .highlight {
     color: #3b82f6;
-
 }
 
 .subtext {
-    font-size: 1.125rem;
+    font-size: 1.4rem;
     color: #6b7280;
-    max-width: 700px;
-    line-height: 1.6;
+    max-width: 875px;
+    line-height: 2;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 40px;
+    padding-top: 50px;
 }
 
 .feature {
-    padding-top: 80px;
+    padding-top: 100px;
 }
 
 .featuretitle {
-    font-size: 30px;
+    font-size: 38px;
 }
 
 .cardcontainer {
-    padding-top: 25px;
+    padding-top: 31px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 40px;
+    gap: 50px;
 }
 
 /* Footer */
 footer {
     text-align: center;
-    font-size: 10px;
+    font-size: 13px;
     background-color: #c0fafa;
 }

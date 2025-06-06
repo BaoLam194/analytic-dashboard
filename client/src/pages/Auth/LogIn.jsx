@@ -1,7 +1,8 @@
+import styles from "./Auth.module.css";
 import { useState, useContext } from "react";
-import supabase from "../client";
+import supabase from "../../client";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../UserContext";
+import { UserContext } from "../../UserContext";
 
 export default function LogIn() {
   const [formData, setFormData] = useState({
@@ -10,7 +11,6 @@ export default function LogIn() {
   });
   const navigate = useNavigate(); // navigate to log in
   const { setToken } = useContext(UserContext); // to set the login token
-  console.log(formData);
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -60,7 +60,7 @@ export default function LogIn() {
         name="password"
         onChange={handleChange}
       />
-      <button className="btn-auth" type="submit">
+      <button className={styles["self-center"]} type="submit">
         Log in
       </button>
     </form>

@@ -1,21 +1,21 @@
 .boxcontainer {
     background-color: white;
-    border-radius: 10px;
+    border-radius: 13px;
     text-align: left;
-    padding: 20px;
+    padding: 25px;
     width: 24vw;
 }
 
 .boxcontainer img {
-    width: 25px;
+    width: 31px;
 }
 
 .boxcontainer p {
-    font-size: 15px;
+    font-size: 19px;
     color: #6b7280;
-    padding-top: 3px;
+    padding-top: 4px;
 }
 
 .test {
-    font-size: 25px;
+    font-size: 31px;
 }
