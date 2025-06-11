@@ -15,6 +15,13 @@ export default function Dashboard() {
       >
         Log out
       </button>
+
+      <form method="POST" action="/api/test">
+        <h2>Upload your file</h2>
+        <label for="file">File:</label>
+        <input id="file" type="file" name="file" accept=".csv, .xlsx"></input>
+        <button type="submit">Submit your file</button>
+      </form>
     </>
   );
 }

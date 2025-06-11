@@ -3,10 +3,9 @@ const app = express();
 
 require("dotenv").config();
 
-// parse form
+// parse application/x-www-form-urlencoded for form
 app.use(express.urlencoded({ extended: true }));
-
-// parse application/json
+// parse application/json ~ http request to object
 app.use(express.json());
 
 const hostname = "127.0.0.1";

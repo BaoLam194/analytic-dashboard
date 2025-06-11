@@ -49,6 +49,7 @@ export default function SignUp() {
           <div className={styles.popup}>
             <p>{message}</p>
             <button
+              className={styles["btn-special"]}
               onClick={() => {
                 setLoading(false);
                 if (message.includes("successful")) {

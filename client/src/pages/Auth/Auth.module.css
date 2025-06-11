@@ -124,3 +124,9 @@ div div p a {
 .btn-auth:hover {
     background-color: rgb(59, 57, 57);
 }
+
+.btn-special {
+    background-color: black;
+    border-radius: 5px;
+    color: #fff;
+}
