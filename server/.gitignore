@@ -28,3 +28,6 @@ dist-ssr
 
 #environment files
 .env
+
+# local data
+user_data
