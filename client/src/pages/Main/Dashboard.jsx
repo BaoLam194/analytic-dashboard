@@ -8,7 +8,6 @@ export default function Dashboard() {
   useEffect(() => {
     async function fetchUserInfo() {
       try {
-        // eslint-disable-next-line no-unused-vars
         const res = await fetch("/api/userinfo", {
           method: "POST",
           headers: {
@@ -16,8 +15,12 @@ export default function Dashboard() {
             Authorization: `Bearer ${token.user.id}`,
           },
         });
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(errorData.error || "Unknown error");
+        }
       } catch (error) {
-        console.log(error);
+        alert("Encouter some error: " + error.message);
       }
     }
 

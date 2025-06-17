@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./DataUploading.module.css";
 
-export default function DataUpload() {
+export default function DataUpload({ files, setFiles }) {
   const [file, setFile] = useState(null);
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -25,6 +25,8 @@ export default function DataUpload() {
       });
 
       const result = await response.json();
+      const newFiles = [...files, file.name].sort();
+      setFiles(newFiles);
       alert(result.message || "File uploaded");
     } catch (err) {
       console.error("Upload failed:", err);
@@ -33,17 +35,17 @@ export default function DataUpload() {
   };
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input
-          id="file"
-          type="file"
-          name="file"
-          accept=".csv, .xlsx"
-          onChange={handleFileChange}
-          className={styles.thisinput}
-        />
-        <button type="submit">Submit your file</button>
-      </form>
+      <input
+        id="file"
+        type="file"
+        name="file"
+        accept=".csv, .xlsx"
+        onChange={handleFileChange}
+        className={styles.thisinput}
+      />
+      <button type="submit" onClick={handleSubmit} className={styles.button}>
+        Submit your file
+      </button>
     </>
   );
 }
