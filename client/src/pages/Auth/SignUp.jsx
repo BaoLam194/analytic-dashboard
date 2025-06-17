@@ -62,7 +62,7 @@ export default function SignUp() {
           </div>
         </div>
       )}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.authform}>
         <label htmlFor="username">Username</label>
         <input
           id="username"

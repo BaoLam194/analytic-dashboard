@@ -59,7 +59,7 @@ export default function LogIn() {
           </div>
         </div>
       )}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.authform}>
         <label htmlFor="email">Email</label>
         <input
           id="email"

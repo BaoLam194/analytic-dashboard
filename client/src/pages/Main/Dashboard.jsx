@@ -1,25 +1,30 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../../UserContext";
+import DataDisplayer from "../../components/DataDisplayer";
 
 export default function Dashboard() {
   const { token, setToken } = useContext(UserContext);
-  if (!token) return <div>Loading...</div>;
-  //automatically send back information
-  async function userInfo() {
-    try {
-      const data = await fetch("/api/userinfo", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token.user.id}`,
-        },
-      });
-      data;
-    } catch (error) {
-      console.log(error);
+
+  useEffect(() => {
+    async function fetchUserInfo() {
+      try {
+        // eslint-disable-next-line no-unused-vars
+        const res = await fetch("/api/userinfo", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token.user.id}`,
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
-  userInfo();
+
+    fetchUserInfo();
+  }, [token]);
+  if (!token) return <div>Loading...</div>;
+
   return (
     <>
       <div>Hello, {token?.user?.user_metadata?.userName}</div>
@@ -30,17 +35,7 @@ export default function Dashboard() {
       >
         Log out
       </button>
-
-      <form
-        action="/api/fileuploading"
-        method="POST"
-        enctype="multipart/form-data"
-      >
-        <h2>Upload your file</h2>
-        <label htmlFor="file">File:</label>
-        <input id="file" type="file" name="file" accept=".csv, .xlsx"></input>
-        <button type="submit">Submit your file</button>
-      </form>
+      <DataDisplayer />
     </>
   );
 }

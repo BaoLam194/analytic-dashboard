@@ -8,9 +8,9 @@ import { UserProvider } from "./UserContext";
 
 const router = createBrowserRouter(routes);
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <UserProvider>
-      <RouterProvider router={router} />
-    </UserProvider>
-  </StrictMode>
+  // <StrictMode>
+  <UserProvider>
+    <RouterProvider router={router} />
+  </UserProvider>
+  // </StrictMode>
 );
