@@ -1,10 +1,11 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../UserContext";
 import DataDisplayer from "../../components/DataDisplayer";
+import AnalyticBoard from "../../components/AnalyticDisplayer";
 
 export default function Dashboard() {
   const { token, setToken } = useContext(UserContext);
-
+  const [validated, setValidated] = useState(false);
   useEffect(() => {
     async function fetchUserInfo() {
       try {
@@ -19,13 +20,15 @@ export default function Dashboard() {
           const errorData = await res.json();
           throw new Error(errorData.error || "Unknown error");
         }
+        console.log("Here is the token");
+        setValidated(true);
       } catch (error) {
         alert("Encouter some error: " + error.message);
       }
     }
 
     fetchUserInfo();
-  }, [token]);
+  }, [token, setValidated]);
   if (!token) return <div>Loading...</div>;
 
   return (
@@ -38,7 +41,8 @@ export default function Dashboard() {
       >
         Log out
       </button>
-      <DataDisplayer />
+      <DataDisplayer validated={validated} />
+      <AnalyticBoard />
     </>
   );
 }

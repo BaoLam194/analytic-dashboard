@@ -31,3 +31,5 @@ dist-ssr
 
 # local data
 user_data
+testing
+venv

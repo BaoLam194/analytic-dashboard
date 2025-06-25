@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import DataUpload from "./DataUploading";
 import styles from "./DataUploading.module.css";
 
-export default function DataDisplayer() {
+export default function DataDisplayer({ validated }) {
   const [files, setFiles] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [fileToDelete, setFileToDelete] = useState(null);
@@ -14,6 +14,7 @@ export default function DataDisplayer() {
         throw new Error(errorData.error || "Unknown error");
       }
       const result = await res.json(); // Parse the response
+
       setFiles(result);
       console.log(result);
     } catch (err) {
@@ -22,7 +23,7 @@ export default function DataDisplayer() {
   };
   useEffect(() => {
     fetchFiles();
-  }, []);
+  }, [validated]);
   const confirmRemove = (file) => {
     setFileToDelete(file);
     setShowModal(true);

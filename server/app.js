@@ -17,6 +17,7 @@ let curUID; //userid
 // (can not catch if the server reloads so the server should not be changed during the time)
 const { setUID, getUID } = require("./user_data/userInfo.js");
 app.post("/userinfo", (req, res) => {
+  //get user infomation
   const token = req.headers["authorization"]?.split(" ")[1]; // "Bearer <token>"
   setUID(token || "");
   console.log(getUID() + " is login");
@@ -24,8 +25,13 @@ app.post("/userinfo", (req, res) => {
 });
 module.exports = curUID;
 
+//File system control
 const FileRouter = require("./routers/FileRouter");
 app.use("/file", FileRouter);
+
+// //Analysis control
+const AnalyticRouter = require("./routers/AnalyticRouter");
+app.use("/analytic", AnalyticRouter);
 
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
