@@ -32,6 +32,7 @@ router.get("/showheader", (req, res) => {
 router.post("/submitting", (req, res) => {
   const data = req.body;
   console.log("Receive request from client :");
+  console.log(data);
 
   const pythonPath = path.join(__dirname, "../venv/Scripts/python.exe"); // path for venv python
   const scriptPath = path.join(__dirname, "../middlewares/Analysis.py");
@@ -55,11 +56,10 @@ router.post("/submitting", (req, res) => {
 
   pythonProcess.on("close", (code) => {
     try {
-      const data = JSON.parse(result);
+      const headers = JSON.parse(result);
       console.log("Closing and");
-      console.log(data); // data too long
-
-      res.json(data);
+      console.log(headers);
+      res.json(headers);
     } catch (error) {
       console.error("Python script error:", error);
       res.status(500).json({ error: "Failed to parse headers" });

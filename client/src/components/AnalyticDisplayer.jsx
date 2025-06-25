@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 export default function AnalyticBoard() {
   const [options, setOptions] = useState([]);
   const [mode, setMode] = useState("");
+  const [result, setResult] = useState({});
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -42,6 +43,7 @@ export default function AnalyticBoard() {
 
       const result = await response.json();
       console.log("Server response:", result);
+      setResult(result || {});
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -98,7 +100,8 @@ export default function AnalyticBoard() {
           <select name="varone">
             {options.map((opt, idx) => (
               <option key={idx} value={opt}>
-                {opt}
+                {opt.split(" ")[0] +
+                  (opt.split(" ")[1] === "(categorical)" ? " (abc)" : " (123)")}
               </option>
             ))}
           </select>
@@ -107,7 +110,10 @@ export default function AnalyticBoard() {
             <select name="vartwo">
               {options.map((opt, idx) => (
                 <option key={idx} value={opt}>
-                  {opt}
+                  {opt.split(" ")[0] +
+                    (opt.split(" ")[1] === "(categorical)"
+                      ? " (abc)"
+                      : " (123)")}
                 </option>
               ))}
             </select>
@@ -128,14 +134,18 @@ export default function AnalyticBoard() {
             />
             Summary
           </label>
-          <label>
-            <input type="checkbox" name="ana_option" value="range" />
-            Range
-          </label>
-          <label>
-            <input type="checkbox" name="ana_option" value="variance" />
-            Variance
-          </label>
+          {mode === "univariate" && (
+            <label>
+              <input type="checkbox" name="ana_option" value="range" />
+              Range
+            </label>
+          )}
+          {mode === "univariate" && (
+            <label>
+              <input type="checkbox" name="ana_option" value="variance" />
+              Variance
+            </label>
+          )}
         </div>
         <div>
           <p>Visualization</p>
@@ -162,6 +172,13 @@ export default function AnalyticBoard() {
         </div>
         <button type="submit">Analyze</button>
       </form>
+      {result.visualization ? (
+        <div>
+          <img src={result.visualization} alt="graph"></img>
+        </div>
+      ) : (
+        <></>
+      )}
     </>
   );
 }

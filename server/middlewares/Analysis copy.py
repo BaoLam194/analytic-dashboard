@@ -2,10 +2,6 @@ import sys
 import json
 import pandas as pd
 import os
-import scipy.stats as stats
-import matplotlib.pyplot as plt
-import base64
-from io import BytesIO
 
 def main():
     if len(sys.argv) < 2:
@@ -42,44 +38,16 @@ def main():
 
         # Depending on the analysis mode and options, process accordingly
         mode = data.get("mode")
-        varone = data.get("varone").split(" ")[0]
+        varone = data.get("varone")
         vartwo =""
         if(mode =="bivariate"):
-            vartwo = data.get("vartwo").split(" ")[0]
+            vartwo = data.get("vartwo")
         ana_option = data.get("ana_option", [])
         visual = data.get("visualization")
 
         result = {}
         result["summary_one"] = df[varone].describe().to_dict()
-        if "variance" in ana_option and len(result["summary_one"]) > 4:
-            # ignore categorical as it only has 4 value in describe
-            result["summary_one"]["variance"] = df[varone].var()
-        if "range" in ana_option and len(result["summary_one"]) > 4:
-            # ignore categorical as it only has 4 value in describe
-            data = df[varone].dropna()  # remove NaNs
-            mean = data.mean()
-            sem = stats.sem(data)  # standard error of the mean
-            # Calculate the 95% CI
-            ci_low, ci_high = stats.t.interval(0.95, df=len(data)-1, loc=mean, scale=sem)
-            result["summary_one"]["ci95_lower"] = ci_low
-            result["summary_one"]["ci95_upper"] = ci_high
         if vartwo: result["summary_two"] = df[vartwo].describe().to_dict()
-        if visual =="hist":
-            plt.figure(figsize=(20, 12))
-            df[varone].hist()
-            plt.title(f'Histogram of {varone}')
-            plt.xlabel(varone)
-            plt.ylabel('Frequency')
-            
-            # Save plot to bytes buffer
-            buf = BytesIO()
-            plt.savefig(buf, format='png', bbox_inches='tight')
-            plt.close()
-            
-            # Encode as base64
-            buf.seek(0)
-            result['visualization'] = base64.b64encode(buf.read()).decode('utf-8')
-            result['visualization'] = f"data:image/png;base64,{result['visualization']}"
         # Output result to stdout
         print(json.dumps(result))
 
