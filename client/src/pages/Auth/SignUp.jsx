@@ -49,6 +49,7 @@ export default function SignUp() {
           <div className={styles.popup}>
             <p>{message}</p>
             <button
+              className={styles["btn-special"]}
               onClick={() => {
                 setLoading(false);
                 if (message.includes("successful")) {
@@ -61,7 +62,7 @@ export default function SignUp() {
           </div>
         </div>
       )}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.authform}>
         <label htmlFor="username">Username</label>
         <input
           id="username"

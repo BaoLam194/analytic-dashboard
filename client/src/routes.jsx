@@ -1,6 +1,7 @@
 import ErrorPage from "./pages/ErrorPage";
 import Auth from "./pages/Auth/Auth";
 import ProtectedRoute from "./ProtectedRoute"; // protected route for dashboard
+import Dashboard from "./pages/Main/Dashboard";
 
 // this is for testing
 // const routes = [
@@ -14,7 +15,11 @@ import ProtectedRoute from "./ProtectedRoute"; // protected route for dashboard
 const routes = [
   {
     path: "/",
-    element: <ProtectedRoute />,
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
     errorElement: <ErrorPage />,
   },
   {
