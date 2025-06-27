@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-
+import { useEffect, useState, useContext } from "react";
+import { UserContext } from "../UserContext";
 export default function AnalyticBoard() {
+  const { token } = useContext(UserContext);
   const [options, setOptions] = useState([]);
   const [mode, setMode] = useState("");
   const [typeOne, setTypeOne] = useState("");
@@ -37,7 +38,9 @@ export default function AnalyticBoard() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token.user.id}`,
         },
+
         body: JSON.stringify(payload),
       });
 

@@ -67,12 +67,15 @@ export default function DataDisplayer({ validated }) {
             {files.map((file, index) => (
               <li key={index} className={styles.fileItem}>
                 <span title={file}>{file}</span>
-                <button
-                  className={styles.removeButton}
-                  onClick={() => confirmRemove(file)}
-                >
-                  X
-                </button>
+                <div styleName={styles["nav-btn"]}>
+                  <img src="/analysis-go.svg" alt="logo" />
+                  <button
+                    className={styles.removeButton}
+                    onClick={() => confirmRemove(file)}
+                  >
+                    X
+                  </button>
+                </div>
               </li>
             ))}
           </ul>

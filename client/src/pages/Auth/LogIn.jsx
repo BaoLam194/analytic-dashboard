@@ -10,7 +10,7 @@ export default function LogIn() {
     password: "",
   });
   const [loading, setLoading] = useState(false); //popupstate
-  const [message, setMessage] = useState(""); //popup message
+  const [message, setMessage] = useState("Waiting server"); //popup message
   const navigate = useNavigate(); // navigate to log in
   const { setToken } = useContext(UserContext); // to set the login token
   const handleChange = (e) => {
@@ -22,7 +22,7 @@ export default function LogIn() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
+    setLoading(true);
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: formData.email,
@@ -31,7 +31,6 @@ export default function LogIn() {
 
       if (error) throw error;
       setMessage("Log in successful! Redirecting...");
-      setLoading(true);
       setToken(data);
       localStorage.setItem("token", JSON.stringify(data)); // Save token in localStorage
       setTimeout(() => navigate("/"), 3000);
@@ -69,7 +68,9 @@ export default function LogIn() {
           name="email"
           onChange={handleChange}
         />
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password" className={styles.smalladjust}>
+          Password
+        </label>
         <input
           id="password"
           type="password"
