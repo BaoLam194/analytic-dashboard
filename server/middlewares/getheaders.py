@@ -19,8 +19,8 @@ try:
     new_headers =[]
     for header in headers:
         if df[header].dtype == "object":
-            new_headers.append( f"{header} (categorical)")
-        else: new_headers.append( f"{header} (numerical)")
+            new_headers.append( f"{header} categorical")
+        else: new_headers.append( f"{header} numerical")
     print(json.dumps(new_headers))  # Output headers as JSON
 except Exception as e:
     print(json.dumps({"error": str(e)}))

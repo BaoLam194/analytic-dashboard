@@ -7,7 +7,7 @@ const uploadFile = async (req, res, next) => {
 
   await upload.single("file")(req, res, function (err) {
     if (err) {
-      return res.status(500).json({ error: err.message });
+      return res.status(500).json({ error: "i am testing" });
     }
     if (!req.file) {
       return res.status(400).json({ error: "No file provided" });

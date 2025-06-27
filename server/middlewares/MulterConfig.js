@@ -20,7 +20,7 @@ function getMulterUpload(curUID) {
     },
   });
   const customFilter = function (req, file, cb) {
-    const allowedTypes = [".xlsx", ".csv"];
+    const allowedTypes = [".xlsx", ".csv", ".xls"];
     const ext = path.extname(file.originalname).toLowerCase();
 
     if (allowedTypes.includes(ext)) {

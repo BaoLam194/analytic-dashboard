@@ -50,25 +50,40 @@ def main():
         visual = data.get("visualization")
 
         result = {}
-        result["summary_one"] = df[varone].describe().to_dict()
-        if "variance" in ana_option and len(result["summary_one"]) > 4:
+        result["analysis"] = df[varone].describe().to_dict()
+        if "variance" in ana_option and len(result["analysis"]) > 4:
             # ignore categorical as it only has 4 value in describe
-            result["summary_one"]["variance"] = df[varone].var()
-        if "range" in ana_option and len(result["summary_one"]) > 4:
+            result["analysis"]["variance"] = df[varone].var()
+        if "range" in ana_option and len(result["analysis"]) > 4:
             # ignore categorical as it only has 4 value in describe
             data = df[varone].dropna()  # remove NaNs
             mean = data.mean()
             sem = stats.sem(data)  # standard error of the mean
             # Calculate the 95% CI
             ci_low, ci_high = stats.t.interval(0.95, df=len(data)-1, loc=mean, scale=sem)
-            result["summary_one"]["ci95_lower"] = ci_low
-            result["summary_one"]["ci95_upper"] = ci_high
+            result["analysis"]["ci95_lower"] = ci_low
+            result["analysis"]["ci95_upper"] = ci_high
         if vartwo: result["summary_two"] = df[vartwo].describe().to_dict()
-        if visual =="hist":
+        # only varone and numerical
+        if data.get("varone").split(" ")[1] =="numerical" and not vartwo and (visual =="hist" or visual =="boxplot" or visual =="kde"):
             plt.figure(figsize=(20, 12))
-            df[varone].hist()
-            plt.title(f'Histogram of {varone}')
-            plt.xlabel(varone)
+
+            if visual =="hist": 
+                df[varone].plot(kind=visual, bins=30,edgecolor='black', color='steelblue')
+                plt.title(f'Histogram of {varone}')
+            elif visual =="kde": 
+                df[varone].plot(kind=visual, color='steelblue')
+                plt.title(f'KDE graph of {varone}')
+            else: 
+                plt.boxplot(df[varone].dropna(), patch_artist=True,
+                    boxprops=dict(facecolor='skyblue', color='black'),   # Fill color & border
+                    medianprops=dict(color='red', linewidth=2),           # Median line
+                    whiskerprops=dict(color='black'),
+                    capprops=dict(color='black'),
+                    flierprops=dict(marker='o', markerfacecolor='orange', markersize=6, linestyle='none')) # outlier
+                plt.title(f'Boxplot of {varone}')
+            
+            if visual !="boxplot": plt.xlabel(varone)
             plt.ylabel('Frequency')
             
             # Save plot to bytes buffer
@@ -80,7 +95,32 @@ def main():
             buf.seek(0)
             result['visualization'] = base64.b64encode(buf.read()).decode('utf-8')
             result['visualization'] = f"data:image/png;base64,{result['visualization']}"
-        # Output result to stdout
+        
+        if data.get("varone").split(" ")[1] =="categorical" and not vartwo and (visual =="bar" or visual =="pie"):
+            plt.figure(figsize=(20, 12))
+            
+            if visual =="bar": 
+                df[varone].value_counts().plot(kind=visual, edgecolor='black', color=['steelblue', 'pink',
+                                                                                       'yellow', 'purple', 'orange'])
+                plt.title(f'Bar chart of {varone}')
+                plt.xlabel(varone)
+            else: 
+                df[varone].value_counts().plot(kind=visual, color='steelblue')
+                plt.title(f'Pie chart of {varone}')
+
+
+
+            # Save plot to bytes buffer
+            buf = BytesIO()
+            plt.savefig(buf, format='png', bbox_inches='tight')
+            plt.close()
+            
+            # Encode as base64
+            buf.seek(0)
+            result['visualization'] = base64.b64encode(buf.read()).decode('utf-8')
+            result['visualization'] = f"data:image/png;base64,{result['visualization']}"
+
+        # Output result to stdout 
         print(json.dumps(result))
 
     except Exception as e:

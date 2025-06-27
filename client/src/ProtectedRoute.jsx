@@ -10,5 +10,5 @@ export default function ProtectedRoute({ children }) {
     return <Home />; // no token go to home
   }
   //there is token
-  return children || <Home />;
+  return children || <Dashboard />;
 }

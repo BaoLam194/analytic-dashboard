@@ -1,14 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import DataUpload from "./DataUploading";
 import styles from "./DataUploading.module.css";
-
+import { UserContext } from "../UserContext";
 export default function DataDisplayer({ validated }) {
+  const { token } = useContext(UserContext);
   const [files, setFiles] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [fileToDelete, setFileToDelete] = useState(null);
   const fetchFiles = async () => {
     try {
-      const res = await fetch("/api/file/show");
+      const res = await fetch("/api/file/show", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token.user.id}`,
+        },
+      });
       if (!res.ok) {
         const errorData = await res.json();
         throw new Error(errorData.error || "Unknown error");
@@ -23,6 +29,7 @@ export default function DataDisplayer({ validated }) {
   };
   useEffect(() => {
     fetchFiles();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [validated]);
   const confirmRemove = (file) => {
     setFileToDelete(file);

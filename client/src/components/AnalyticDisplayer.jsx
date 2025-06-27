@@ -3,10 +3,14 @@ import { useEffect, useState } from "react";
 export default function AnalyticBoard() {
   const [options, setOptions] = useState([]);
   const [mode, setMode] = useState("");
+  const [typeOne, setTypeOne] = useState("");
+  const [typeTwo, setTypeTwo] = useState("");
   const [result, setResult] = useState({});
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log("Testing for type");
+    console.log(typeOne);
+    console.log(typeTwo);
     const formData = new FormData(e.target); // extract data from the form
 
     const mode = formData.get("mode"); // get selected radio value
@@ -97,23 +101,31 @@ export default function AnalyticBoard() {
         <div>
           {/* Always show the first variable */}
 
-          <select name="varone">
+          <select
+            name="varone"
+            onChange={(e) => setTypeOne(e.target.value.split(" ")[1])}
+          >
             {options.map((opt, idx) => (
               <option key={idx} value={opt}>
                 {opt.split(" ")[0] +
-                  (opt.split(" ")[1] === "(categorical)" ? " (abc)" : " (123)")}
+                  (opt.split(" ")[1] === "categorical" ? " (abc)" : " (123)")}
               </option>
             ))}
           </select>
 
           {mode === "bivariate" && (
-            <select name="vartwo">
+            <select
+              name="vartwo"
+              onChange={(e) => setTypeTwo(e.target.value.split(" ")[1])}
+            >
               {options.map((opt, idx) => (
-                <option key={idx} value={opt}>
+                <option
+                  key={idx}
+                  value={opt}
+                  onChange={() => setTypeTwo(opt.split(" ")[1])}
+                >
                   {opt.split(" ")[0] +
-                    (opt.split(" ")[1] === "(categorical)"
-                      ? " (abc)"
-                      : " (123)")}
+                    (opt.split(" ")[1] === "categorical" ? " (abc)" : " (123)")}
                 </option>
               ))}
             </select>
@@ -153,22 +165,36 @@ export default function AnalyticBoard() {
             <input type="radio" name="visual" value="null" />
             None
           </label>
-          <label>
-            <input type="radio" name="visual" value="hist" />
-            Histogram
-          </label>
-          <label>
-            <input type="radio" name="visual" value="box" />
-            Boxplot
-          </label>
-          <label>
-            <input type="radio" name="visual" value="bar" />
-            Bar chart
-          </label>
-          <label>
-            <input type="radio" name="visual" value="pie" />
-            Pie chart
-          </label>
+          {mode === "univariate" && typeOne === "numerical" && (
+            <label>
+              <input type="radio" name="visual" value="hist" />
+              Histogram
+            </label>
+          )}
+          {mode === "univariate" && typeOne === "numerical" && (
+            <label>
+              <input type="radio" name="visual" value="boxplot" />
+              Boxplot
+            </label>
+          )}
+          {mode === "univariate" && typeOne === "numerical" && (
+            <label>
+              <input type="radio" name="visual" value="kde" />
+              KDE
+            </label>
+          )}
+          {mode === "univariate" && typeOne === "categorical" && (
+            <label>
+              <input type="radio" name="visual" value="bar" />
+              Bar chart
+            </label>
+          )}
+          {mode === "univariate" && typeOne === "categorical" && (
+            <label>
+              <input type="radio" name="visual" value="pie" />
+              Pie chart
+            </label>
+          )}
         </div>
         <button type="submit">Analyze</button>
       </form>
@@ -179,6 +205,7 @@ export default function AnalyticBoard() {
       ) : (
         <></>
       )}
+      {result.analysis && <div>{result.analysis["50%"]}</div>}
     </>
   );
 }
