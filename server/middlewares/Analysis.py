@@ -42,15 +42,20 @@ def main():
 
         # Depending on the analysis mode and options, process accordingly
         mode = data.get("mode")
-        varone = data.get("varone").split(" ")[0]
+        var_one = data.get("varone").split(" ")
+        varone = var_one[0]
+        typeone = var_one[1]
         vartwo =""
         if(mode =="bivariate"):
-            vartwo = data.get("vartwo").split(" ")[0]
+            var_two = data.get("vartwo").split(" ")
+            vartwo = var_two[0]
+            typetwo =var_two[1]
         ana_option = data.get("ana_option", [])
         visual = data.get("visualization")
 
         result = {}
         result["analysis"] = df[varone].describe().to_dict()
+
         if "variance" in ana_option and len(result["analysis"]) > 4:
             # ignore categorical as it only has 4 value in describe
             result["analysis"]["variance"] = df[varone].var()
@@ -65,7 +70,7 @@ def main():
             result["analysis"]["ci95_upper"] = ci_high
         if vartwo: result["summary_two"] = df[vartwo].describe().to_dict()
         # only varone and numerical
-        if data.get("varone").split(" ")[1] =="numerical" and not vartwo and (visual =="hist" or visual =="boxplot" or visual =="kde"):
+        if typeone =="numerical" and not vartwo and (visual =="hist" or visual =="boxplot" or visual =="kde"):
             plt.figure(figsize=(20, 12))
 
             if visual =="hist": 
@@ -96,7 +101,7 @@ def main():
             result['visualization'] = base64.b64encode(buf.read()).decode('utf-8')
             result['visualization'] = f"data:image/png;base64,{result['visualization']}"
         
-        if data.get("varone").split(" ")[1] =="categorical" and not vartwo and (visual =="bar" or visual =="pie"):
+        if typeone =="categorical" and not vartwo and (visual =="bar" or visual =="pie"):
             plt.figure(figsize=(20, 12))
             
             if visual =="bar": 

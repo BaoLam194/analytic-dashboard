@@ -1,9 +1,10 @@
 const fs = require("fs");
-const { getUID } = require("../user_data/userInfo.js");
 const getMulterUpload = require("../middlewares/MulterConfig.js");
 
 const uploadFile = async (req, res, next) => {
-  const upload = getMulterUpload(getUID());
+  //get user infomation
+  const token = req.headers["authorization"]?.split(" ")[1]; // "Bearer <token>"
+  const upload = getMulterUpload(token);
 
   await upload.single("file")(req, res, function (err) {
     if (err) {
@@ -12,16 +13,19 @@ const uploadFile = async (req, res, next) => {
     if (!req.file) {
       return res.status(400).json({ error: "No file provided" });
     }
-    console.log(getUID() + " sent a file");
+    console.log(token + " sent a file");
     console.log(req.file);
     res.json({ message: "File uploaded successfully" });
   });
 };
 const showFiles = (req, res) => {
-  console.log("Giving back files for " + getUID());
+  //get user infomation
+  const token = req.headers["authorization"]?.split(" ")[1]; // "Bearer <token>"
+
+  console.log("Giving back files for " + token);
 
   try {
-    const data = fs.readdirSync(`./user_data/${getUID()}`);
+    const data = fs.readdirSync(`./user_data/${token}`);
     console.log(data);
     res.json(data);
   } catch (err) {
@@ -29,9 +33,12 @@ const showFiles = (req, res) => {
   }
 };
 const deleteFile = (req, res) => {
+  //get user infomation
+  const token = req.headers["authorization"]?.split(" ")[1]; // "Bearer <token>"
+
   const id = req.params.id;
-  console.log(`./user_data/${getUID()}/${id}`);
-  const filePath = `./user_data/${getUID()}/${id}`;
+  console.log(`./user_data/${token}/${id}`);
+  const filePath = `./user_data/${token}/${id}`;
   try {
     fs.unlinkSync(filePath);
     console.log("Successfully removed file: " + id);
