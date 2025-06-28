@@ -33,7 +33,9 @@ export default function DataUpload({ files, setFiles }) {
       }
 
       const result = await response.json();
-      const newFiles = [...files, file.name].sort();
+      const newFiles = result.message.includes("overwritten")
+        ? [...files].sort()
+        : [...files, file.name].sort();
       setFiles(newFiles);
       alert(result.message || "File uploaded");
     } catch (err) {

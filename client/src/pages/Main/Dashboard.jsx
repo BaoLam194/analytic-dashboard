@@ -20,6 +20,14 @@ export default function Dashboard() {
             <h2>DataLytics</h2>
           </Link>
         </nav>
+        <div className={styles["nav-link"]}>
+          {/* <Link to="/" className={styles["nav-child"]}>
+            <h3>File system</h3>
+          </Link> */}
+          <Link to="/analytic" className={styles["nav-child"]}>
+            <h3>Analytic</h3>
+          </Link>
+        </div>
         <div className={styles.auth}>
           <span className={`${styles.welcome}`}>
             {token?.user?.user_metadata?.userName}
@@ -36,7 +44,6 @@ export default function Dashboard() {
       </header>
 
       <DataDisplayer />
-      <AnalyticBoard />
     </>
   );
 }

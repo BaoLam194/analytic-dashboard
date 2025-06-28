@@ -16,7 +16,16 @@ function getMulterUpload(curUID) {
       cb(null, uploadDir);
     },
     filename: function (req, file, cb) {
-      cb(null, file.originalname);
+      const uploadDir = path.join(__dirname, `../user_data/${curUID}`);
+      const filePath = path.join(uploadDir, file.originalname);
+      // Check if file exists
+      if (fs.existsSync(filePath)) {
+        req.overwritten = true;
+      } else {
+        req.overwritten = false;
+      }
+
+      cb(null, file.originalname); //use original filepath
     },
   });
   const customFilter = function (req, file, cb) {

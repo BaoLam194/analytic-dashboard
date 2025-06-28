@@ -8,14 +8,17 @@ const uploadFile = async (req, res, next) => {
 
   await upload.single("file")(req, res, function (err) {
     if (err) {
-      return res.status(500).json({ error: "i am testing" });
+      return res.status(500).json({ error: err.message || "Failed to upload" });
     }
     if (!req.file) {
       return res.status(400).json({ error: "No file provided" });
     }
     console.log(token + " sent a file");
     console.log(req.file);
-    res.json({ message: "File uploaded successfully" });
+    const message = req.overwritten
+      ? "File overwritten successfully"
+      : "File uploaded successfully";
+    res.json({ message });
   });
 };
 const showFiles = (req, res) => {

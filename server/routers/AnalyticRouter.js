@@ -4,10 +4,14 @@ const path = require("path");
 
 const router = express.Router();
 
-router.get("/showheader", (req, res) => {
+router.post("/showheader", (req, res) => {
+  //get user infomation
+  const token = req.headers["authorization"]?.split(" ")[1]; // "Bearer <token>"
+  const { file } = req.body;
+  console.log("user is request header for", file);
   const pythonPath = path.join(__dirname, "../venv/Scripts/python.exe"); // path for venv python
   const scriptPath = path.join(__dirname, "../middlewares/getheaders.py");
-  const filePath = path.join(__dirname, "../user_data/Timothy_TD19_ICQ4.csv"); // have to change later
+  const filePath = path.join(__dirname, `../user_data/${token}/${file}`); // have to change later
 
   const pythonProcess = spawn(pythonPath, [scriptPath, filePath]);
   let result = "";
@@ -22,6 +26,7 @@ router.get("/showheader", (req, res) => {
   pythonProcess.on("close", (code) => {
     try {
       const headers = JSON.parse(result);
+
       res.json(headers);
     } catch (error) {
       res.status(500).json({ error: "Failed to parse headers" });
@@ -30,12 +35,15 @@ router.get("/showheader", (req, res) => {
 });
 
 router.post("/submitting", (req, res) => {
+  //get user infomation
+  const token = req.headers["authorization"]?.split(" ")[1]; // "Bearer <token>"
+
   const data = req.body;
   console.log("Receive request from client :");
-
+  const fileName = data.fileName;
   const pythonPath = path.join(__dirname, "../venv/Scripts/python.exe"); // path for venv python
   const scriptPath = path.join(__dirname, "../middlewares/Analysis.py");
-  const filePath = path.join(__dirname, "../user_data/Timothy_TD19_ICQ4.csv"); // have to change later
+  const filePath = path.join(__dirname, `../user_data/${token}/${fileName}`); // have to change later
 
   //serialize data to python
   const newData = { ...data, filePath: filePath };

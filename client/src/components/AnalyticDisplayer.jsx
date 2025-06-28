@@ -1,12 +1,24 @@
 import { useEffect, useState, useContext } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
+import styles from "./AnalyticDisplayer.module.css";
 export default function AnalyticBoard() {
+  const { file } = useParams(); // current file from the browser url
   const { token } = useContext(UserContext);
+  const [modal, setModal] = useState(""); //modal
+  const [mode, setMode] = useState(""); //form handling state
   const [options, setOptions] = useState([]);
-  const [mode, setMode] = useState("");
   const [typeOne, setTypeOne] = useState("");
   const [typeTwo, setTypeTwo] = useState("");
-  const [result, setResult] = useState({});
+  const [result, setResult] = useState({}); //result from server
+  const navigate = useNavigate(); //navigate ? : )
+  //check if file
+  useEffect(() => {
+    if (!file) {
+      setModal("Please choose a file");
+      return;
+    }
+  }, [file]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Testing for type");
@@ -20,6 +32,7 @@ export default function AnalyticBoard() {
     const ana_option = formData.getAll("ana_option"); // analysis option
     const visualization =
       formData.get("visual") === "null" ? "" : formData.get("visual");
+    const fileName = file;
     if (!mode) {
       alert("Please select a mode.");
       return;
@@ -30,8 +43,8 @@ export default function AnalyticBoard() {
     }
     const payload =
       mode === "bivariate"
-        ? { mode, varone, vartwo, ana_option, visualization }
-        : { mode, varone, ana_option, visualization }; // data transfer
+        ? { mode, varone, vartwo, ana_option, visualization, fileName }
+        : { mode, varone, ana_option, visualization, fileName }; // data transfer
 
     try {
       const response = await fetch("/api/analytic/submitting", {
@@ -59,24 +72,76 @@ export default function AnalyticBoard() {
     async function fetchOptions() {
       try {
         const res = await fetch("/api/analytic/showheader", {
-          method: "GET",
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token.user.id}`,
+          },
+          body: JSON.stringify({ file: file }),
+          // file = testing.csv
         });
         if (!res.ok) {
           const errorData = await res.json();
           throw new Error(errorData.error || "Unknown error");
         }
         const data = await res.json();
+        if (data.error) {
+          setModal("Please check your file path again!");
+          throw new Error();
+        }
         console.log("receive options successfully");
+        console.log(data);
+        if (!data)
+          throw new Error("There is no columns in your file, check again!");
+        const temp = data[0].split(" ")[1];
+        setTypeOne(temp);
+        // automatically change the typeone to initialize the condition
         setOptions(data || []);
       } catch (error) {
         alert("Encouter some error: " + error.message);
       }
     }
 
-    fetchOptions();
+    if (file) fetchOptions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
+      {/* Modal only  */}
+      {modal && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modal}>
+            <p>{modal}</p>
+            <div className={styles.modalButtons}>
+              <button
+                onClick={() => {
+                  setModal("");
+                  navigate("/");
+                }}
+              >
+                Return to file
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      <header>
+        <nav>
+          <Link to="/" className={styles.icon}>
+            <img src="/vite.svg" alt="logo" />
+            <h2>DataLytics</h2>
+          </Link>
+        </nav>
+        <div className={styles["nav-link"]}>
+          {/* <Link to="/" className={styles["nav-child"]}>
+            <h3>File system</h3>
+          </Link> */}
+          {/* <Link to="/analytic" className={styles["nav-child"]}>
+            <h3>Analytic</h3>
+          </Link> */}
+        </div>
+      </header>
+
       <form onSubmit={handleSubmit}>
         <div>
           <p>Variable</p>
@@ -106,6 +171,7 @@ export default function AnalyticBoard() {
 
           <select
             name="varone"
+            defaultValue={options[1]} // selects the second option by default to trigger the state
             onChange={(e) => setTypeOne(e.target.value.split(" ")[1])}
           >
             {options.map((opt, idx) => (

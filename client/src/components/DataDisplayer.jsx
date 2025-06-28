@@ -2,6 +2,8 @@ import { useState, useEffect, useContext } from "react";
 import DataUpload from "./DataUploading";
 import styles from "./DataUploading.module.css";
 import { UserContext } from "../UserContext";
+import { Link } from "react-router-dom";
+
 export default function DataDisplayer({ validated }) {
   const { token } = useContext(UserContext);
   const [files, setFiles] = useState(null);
@@ -20,8 +22,9 @@ export default function DataDisplayer({ validated }) {
         throw new Error(errorData.error || "Unknown error");
       }
       const result = await res.json(); // Parse the response
-
+      //also result don't have property length
       setFiles(result);
+
       console.log(result);
     } catch (err) {
       alert("Error fetching file info:", err);
@@ -39,6 +42,9 @@ export default function DataDisplayer({ validated }) {
     try {
       const res = await fetch(`/api/file/delete/${file}`, {
         method: "POST",
+        headers: {
+          Authorization: `Bearer ${token.user.id}`,
+        },
       });
       if (!res.ok) {
         const errorData = await res.json();
@@ -62,13 +68,15 @@ export default function DataDisplayer({ validated }) {
             Refresh
           </button>
         </div>
-        {files ? (
+        {files && files.length > 0 ? ( // Empty arrays are TRUE in JS :))))
           <ul className={styles.fileList}>
             {files.map((file, index) => (
               <li key={index} className={styles.fileItem}>
                 <span title={file}>{file}</span>
-                <div styleName={styles["nav-btn"]}>
-                  <img src="/analysis-go.svg" alt="logo" />
+                <div className={styles["nav-btn"]}>
+                  <Link to={`/analytic/${file}`}>
+                    <img src="/analysis-go.svg" alt="logo" />
+                  </Link>
                   <button
                     className={styles.removeButton}
                     onClick={() => confirmRemove(file)}

@@ -2,6 +2,7 @@ import ErrorPage from "./pages/ErrorPage";
 import Auth from "./pages/Auth/Auth";
 import ProtectedRoute from "./ProtectedRoute"; // protected route for dashboard
 import Dashboard from "./pages/Main/Dashboard";
+import AnalyticBoard from "./components/AnalyticDisplayer";
 
 // this is for testing
 // const routes = [
@@ -25,6 +26,16 @@ const routes = [
   {
     path: "/auth/:name",
     element: <Auth />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/analytic",
+    element: <AnalyticBoard />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/analytic/:file",
+    element: <AnalyticBoard />,
     errorElement: <ErrorPage />,
   },
 ];
