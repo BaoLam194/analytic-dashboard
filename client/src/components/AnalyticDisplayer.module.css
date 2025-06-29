@@ -1,5 +1,5 @@
 .wrapper {
-    background: linear-gradient(to bottom right, #a5c8ff, #d6e6ff);
+    background: linear-gradient(to bottom right, #b4d1ff, #e7f0ff);
     min-height: 100vh;
     width: 100%;
 }
@@ -117,25 +117,26 @@
 }
 
 .randomButton {
-    background-color: #5D8BF4;
+    background-color: #d84315;
     color: white;
     padding: 8px 13px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
-    margin-top: 10px;
-    margin-left: 1.33%;
+    margin-top: 14px;
+    margin-left: 50px;
 }
 
 .randomButton:hover {
-    background-color: #4A7AE0;
+    background-color: #ff7043;
 }
 
 /* Analysis container */
 .analysisContainer {
     width: 100%;
     padding: 1.5rem;
+    padding-top: 0px;
     box-sizing: border-box;
 }
 

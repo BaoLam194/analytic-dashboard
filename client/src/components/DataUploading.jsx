@@ -40,7 +40,11 @@ export default function DataUpload({ files, setFiles }) {
       alert(result.message || "File uploaded");
     } catch (err) {
       console.error("Upload failed:", err);
-      alert("Request failed: " + err.message);
+      if (err.name === "TypeError" && err.message === "Failed to fetch") {
+        alert("Please try again! Don't input unsupported files");
+      } else {
+        alert("Request failed: " + err.message);
+      }
     }
   };
   return (
