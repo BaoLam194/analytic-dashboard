@@ -10,6 +10,7 @@ export default function AnalyticBoard() {
   const [options, setOptions] = useState([]);
   const [typeOne, setTypeOne] = useState("");
   const [typeTwo, setTypeTwo] = useState("");
+  const [typeDefault, setTypeDefault] = useState("");
   const [result, setResult] = useState({}); //result from server
   const navigate = useNavigate(); //navigate ? : )
   //check if file
@@ -95,6 +96,7 @@ export default function AnalyticBoard() {
           throw new Error("There is no columns in your file, check again!");
         const temp = data[0].split(" ")[1];
         setTypeOne(temp);
+        setTypeDefault(temp);
         // automatically change the typeone to initialize the condition
         setOptions(data || []);
       } catch (error) {
@@ -106,7 +108,7 @@ export default function AnalyticBoard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <>
+    <div className={styles.wrapper}>
       {/* Modal only  */}
       {modal && (
         <div className={styles.modalOverlay}>
@@ -141,140 +143,193 @@ export default function AnalyticBoard() {
           </Link> */}
         </div>
       </header>
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <p>Variable</p>
-          <label>
-            <input
-              type="radio"
-              name="mode"
-              value="univariate"
-              onChange={() => setMode("univariate")}
-            />
-            Univariate
-          </label>
-
-          <label>
-            <input
-              type="radio"
-              name="mode"
-              value="bivariate"
-              onChange={() => setMode("bivariate")}
-            />
-            Bivariate
-          </label>
-        </div>
-        {/* Choose variable */}
-        <div>
-          {/* Always show the first variable */}
-
-          <select
-            name="varone"
-            defaultValue={options[1]} // selects the second option by default to trigger the state
-            onChange={(e) => setTypeOne(e.target.value.split(" ")[1])}
-          >
-            {options.map((opt, idx) => (
-              <option key={idx} value={opt}>
-                {opt.split(" ")[0] +
-                  (opt.split(" ")[1] === "categorical" ? " (abc)" : " (123)")}
-              </option>
-            ))}
-          </select>
-
-          {mode === "bivariate" && (
-            <select
-              name="vartwo"
-              onChange={(e) => setTypeTwo(e.target.value.split(" ")[1])}
-            >
-              {options.map((opt, idx) => (
-                <option
-                  key={idx}
-                  value={opt}
-                  onChange={() => setTypeTwo(opt.split(" ")[1])}
+      <Link to="/">
+        <button className={styles.randomButton}>Choose another file</button>
+      </Link>
+      <div className={styles.analysisContainer}>
+        <div className={styles.flexLayout}>
+          <form onSubmit={handleSubmit} className={styles.formContainer}>
+            <div className={styles.formGroup}>
+              <p>Variable</p>
+              <label className={styles.radioLabel}>
+                <input
+                  type="radio"
+                  name="mode"
+                  value="univariate"
+                  onChange={() => {
+                    setMode("univariate");
+                    setTypeTwo("");
+                  }}
+                />
+                Univariate
+              </label>
+              <label className={styles.radioLabel}>
+                <input
+                  type="radio"
+                  name="mode"
+                  value="bivariate"
+                  onChange={() => {
+                    setMode("bivariate");
+                    setTypeTwo(typeDefault);
+                  }}
+                />
+                Bivariate
+              </label>
+            </div>
+            {/* Choose variable */}
+            <div className={styles.formGroup}>
+              {/* Always show the first variable */}
+              <select
+                className={styles.selectInput}
+                name="varone"
+                defaultValue={options[0]} // selects the second option by default to trigger the state
+                onChange={(e) => setTypeOne(e.target.value.split(" ")[1])}
+              >
+                {options.map((opt, idx) => (
+                  <option key={idx} value={opt}>
+                    {opt.split(" ")[0] +
+                      (opt.split(" ")[1] === "categorical"
+                        ? " (abc)"
+                        : " (123)")}
+                  </option>
+                ))}
+              </select>
+              {mode === "bivariate" && (
+                <select
+                  className={styles.selectInput}
+                  name="vartwo"
+                  defaultValue={options[0]} // selects the second option by default to trigger the state
+                  onChange={(e) => setTypeTwo(e.target.value.split(" ")[1])}
                 >
-                  {opt.split(" ")[0] +
-                    (opt.split(" ")[1] === "categorical" ? " (abc)" : " (123)")}
-                </option>
-              ))}
-            </select>
-          )}
+                  {options.map((opt, idx) => (
+                    <option
+                      key={idx}
+                      value={opt}
+                      onChange={() => setTypeTwo(opt.split(" ")[1])}
+                    >
+                      {opt.split(" ")[0] +
+                        (opt.split(" ")[1] === "categorical"
+                          ? " (abc)"
+                          : " (123)")}
+                    </option>
+                  ))}
+                </select>
+              )}
+            </div>
+            {/* Choose analysis options */}
+            <div className={styles.formGroup}>
+              <p>Analysis Options</p>
+              <label className={styles.checkboxLabel}>
+                <input
+                  type="checkbox"
+                  name="ana_option"
+                  value="summary"
+                  checked
+                  onChange={() => {
+                    return false;
+                  }}
+                />
+                Summary
+              </label>
+              {mode === "univariate" && typeOne === "numerical" && (
+                <label className={styles.checkboxLabel}>
+                  <input type="checkbox" name="ana_option" value="range" />
+                  Range
+                </label>
+              )}
+              {mode === "univariate" && typeOne === "numerical" && (
+                <label className={styles.checkboxLabel}>
+                  <input type="checkbox" name="ana_option" value="variance" />
+                  Variance
+                </label>
+              )}
+            </div>
+            <div className={styles.formGroup}>
+              <p>Visualization</p>
+              <label className={styles.radioLabel}>
+                <input type="radio" name="visual" value="null" />
+                None
+              </label>
+              {mode === "univariate" && typeOne === "numerical" && (
+                <label className={styles.radioLabel}>
+                  <input type="radio" name="visual" value="hist" />
+                  Histogram
+                </label>
+              )}
+              {mode === "univariate" && typeOne === "numerical" && (
+                <label className={styles.radioLabel}>
+                  <input type="radio" name="visual" value="boxplot" />
+                  Boxplot
+                </label>
+              )}
+              {mode === "univariate" && typeOne === "numerical" && (
+                <label className={styles.radioLabel}>
+                  <input type="radio" name="visual" value="kde" />
+                  KDE
+                </label>
+              )}
+              {mode === "univariate" && typeOne === "categorical" && (
+                <label className={styles.radioLabel}>
+                  <input type="radio" name="visual" value="bar" />
+                  Bar chart
+                </label>
+              )}
+              {mode === "univariate" && typeOne === "categorical" && (
+                <label className={styles.radioLabel}>
+                  <input type="radio" name="visual" value="pie" />
+                  Pie chart
+                </label>
+              )}
+            </div>
+            <button type="submit" className={styles.submitButton}>
+              Analyze
+            </button>
+          </form>
+          <div className={styles.resultContainer}>
+            {result.analysis && result.analysis.std && (
+              <div className={styles.analysisBox}>
+                <span>Total: {result.analysis.count}</span>
+                <span>Min: {result.analysis.min}</span>
+                <span>Max: {result.analysis.max}</span>
+                <span>Median: {result.analysis["50%"]}</span>
+                {result.analysis["ci95_lower"] && (
+                  <span>
+                    Range: [{result.analysis["ci95_lower"].toFixed(4)},{" "}
+                    {result.analysis["ci95_lower"].toFixed(4)}]
+                  </span>
+                )}
+                {result.analysis.variance && (
+                  <span>Variance: {result.analysis.variance}</span>
+                )}
+              </div>
+            )}
+            {result.analysis && result.analysis.unique && (
+              <div className={styles.analysisBox}>
+                <span>Total: {result.analysis.count}</span>
+                <span>Distinct value: {result.analysis.unique}</span>
+                <span>Most frequent value: {result.analysis.top}</span>
+                <span>Frequency: {result.analysis.freq}</span>
+              </div>
+            )}
+            {result.visualization ? (
+              <div className={styles.visualBox}>
+                <img
+                  src={result.visualization}
+                  alt="graph"
+                  className={styles.graphImage}
+                ></img>
+              </div>
+            ) : (
+              <></>
+            )}
+            {!result.analysis && !result.visualization && (
+              <div className={styles.advice}>
+                Do some analytics in the left!
+              </div>
+            )}
+          </div>
         </div>
-        {/* Choose analysis options */}
-        <div>
-          <p>Analysis Options</p>
-          <label>
-            <input
-              type="checkbox"
-              name="ana_option"
-              value="summary"
-              checked
-              onChange={() => {
-                return false;
-              }}
-            />
-            Summary
-          </label>
-          {mode === "univariate" && (
-            <label>
-              <input type="checkbox" name="ana_option" value="range" />
-              Range
-            </label>
-          )}
-          {mode === "univariate" && (
-            <label>
-              <input type="checkbox" name="ana_option" value="variance" />
-              Variance
-            </label>
-          )}
-        </div>
-        <div>
-          <p>Visualization</p>
-          <label>
-            <input type="radio" name="visual" value="null" />
-            None
-          </label>
-          {mode === "univariate" && typeOne === "numerical" && (
-            <label>
-              <input type="radio" name="visual" value="hist" />
-              Histogram
-            </label>
-          )}
-          {mode === "univariate" && typeOne === "numerical" && (
-            <label>
-              <input type="radio" name="visual" value="boxplot" />
-              Boxplot
-            </label>
-          )}
-          {mode === "univariate" && typeOne === "numerical" && (
-            <label>
-              <input type="radio" name="visual" value="kde" />
-              KDE
-            </label>
-          )}
-          {mode === "univariate" && typeOne === "categorical" && (
-            <label>
-              <input type="radio" name="visual" value="bar" />
-              Bar chart
-            </label>
-          )}
-          {mode === "univariate" && typeOne === "categorical" && (
-            <label>
-              <input type="radio" name="visual" value="pie" />
-              Pie chart
-            </label>
-          )}
-        </div>
-        <button type="submit">Analyze</button>
-      </form>
-      {result.visualization ? (
-        <div>
-          <img src={result.visualization} alt="graph"></img>
-        </div>
-      ) : (
-        <></>
-      )}
-      {result.analysis && <div>{result.analysis["50%"]}</div>}
-    </>
+      </div>
+    </div>
   );
 }

@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { UserContext } from "../../UserContext";
 import DataDisplayer from "../../components/DataDisplayer";
-import AnalyticBoard from "../../components/AnalyticDisplayer";
 
 import styles from "./Dashboard.module.css";
 import { Link } from "react-router-dom";
@@ -12,7 +11,7 @@ export default function Dashboard() {
   if (!token) return <div>Loading...</div>;
 
   return (
-    <>
+    <div className={styles.wrapper}>
       <header>
         <nav>
           <Link to="/" className={styles.icon}>
@@ -44,6 +43,6 @@ export default function Dashboard() {
       </header>
 
       <DataDisplayer />
-    </>
+    </div>
   );
 }
