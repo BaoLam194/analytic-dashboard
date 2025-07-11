@@ -28,7 +28,11 @@ const showFiles = (req, res) => {
   console.log("Giving back files for " + token);
 
   try {
-    const data = fs.readdirSync(`./user_data/${token}`);
+    const readDir = `./user_data/${token}`;
+    if (!fs.existsSync(readDir)) {
+      fs.mkdirSync(readDir, { recursive: true });
+    }
+    const data = fs.readdirSync(readDir);
     console.log(data);
     res.json(data);
   } catch (err) {

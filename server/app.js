@@ -27,6 +27,10 @@ let curUID; //userid
 
 //File system control
 const FileRouter = require("./routers/FileRouter");
+app.get("/", (req, res) => {
+  console.log(req.session);
+  console.log("TESTING");
+});
 app.use("/file", FileRouter);
 
 // //Analysis control

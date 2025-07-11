@@ -231,13 +231,13 @@ export default function AnalyticBoard() {
                 />
                 Summary
               </label>
-              {mode === "univariate" && typeOne === "numerical" && (
+              {typeOne === "numerical" && (
                 <label className={styles.checkboxLabel}>
                   <input type="checkbox" name="ana_option" value="range" />
                   Range
                 </label>
               )}
-              {mode === "univariate" && typeOne === "numerical" && (
+              {typeOne === "numerical" && (
                 <label className={styles.checkboxLabel}>
                   <input type="checkbox" name="ana_option" value="variance" />
                   Variance
@@ -268,6 +268,12 @@ export default function AnalyticBoard() {
                   KDE
                 </label>
               )}
+              {mode === "univariate" && typeOne === "numerical" && (
+                <label className={styles.radioLabel}>
+                  <input type="radio" name="visual" value="histkde" />
+                  Histogram + KDE
+                </label>
+              )}
               {mode === "univariate" && typeOne === "categorical" && (
                 <label className={styles.radioLabel}>
                   <input type="radio" name="visual" value="bar" />
@@ -280,6 +286,78 @@ export default function AnalyticBoard() {
                   Pie chart
                 </label>
               )}
+              {mode === "bivariate" &&
+                typeOne === "numerical" &&
+                typeTwo === "numerical" && (
+                  <label className={styles.radioLabel}>
+                    <input type="radio" name="visual" value="scatter" />
+                    Scatter
+                  </label>
+                )}
+              {mode === "bivariate" &&
+                typeOne === "numerical" &&
+                typeTwo === "numerical" && (
+                  <label className={styles.radioLabel}>
+                    <input type="radio" name="visual" value="hexbin" />
+                    Hexbin
+                  </label>
+                )}
+              {mode === "bivariate" &&
+                typeOne === "numerical" &&
+                typeTwo === "categorical" && (
+                  <label className={styles.radioLabel}>
+                    <input type="radio" name="visual" value="boxplot" />
+                    Boxplot
+                  </label>
+                )}
+              {mode === "bivariate" &&
+                typeOne === "categorical" &&
+                typeTwo === "numerical" && (
+                  <label className={styles.radioLabel}>
+                    <input type="radio" name="visual" value="boxplot" />
+                    Boxplot
+                  </label>
+                )}
+              {mode === "bivariate" &&
+                typeOne === "categorical" &&
+                typeTwo === "numerical" && (
+                  <label className={styles.radioLabel}>
+                    <input type="radio" name="visual" value="violin" />
+                    Violin plot
+                  </label>
+                )}
+              {mode === "bivariate" &&
+                typeOne === "categorical" &&
+                typeTwo === "numerical" && (
+                  <label className={styles.radioLabel}>
+                    <input type="radio" name="visual" value="bar" />
+                    Bar plot
+                  </label>
+                )}
+              {mode === "bivariate" &&
+                typeOne === "categorical" &&
+                typeTwo === "numerical" && (
+                  <label className={styles.radioLabel}>
+                    <input type="radio" name="visual" value="swarm" />
+                    Swarm plot
+                  </label>
+                )}
+              {mode === "bivariate" &&
+                typeOne === "categorical" &&
+                typeTwo === "categorical" && (
+                  <label className={styles.radioLabel}>
+                    <input type="radio" name="visual" value="count" />
+                    Count plot
+                  </label>
+                )}
+              {mode === "bivariate" &&
+                typeOne === "categorical" &&
+                typeTwo === "categorical" && (
+                  <label className={styles.radioLabel}>
+                    <input type="radio" name="visual" value="stack" />
+                    Stack bar
+                  </label>
+                )}
             </div>
             <button type="submit" className={styles.submitButton}>
               Analyze
@@ -295,7 +373,7 @@ export default function AnalyticBoard() {
                 {result.analysis["ci95_lower"] && (
                   <span>
                     Range: [{result.analysis["ci95_lower"].toFixed(4)},{" "}
-                    {result.analysis["ci95_lower"].toFixed(4)}]
+                    {result.analysis["ci95_upper"].toFixed(4)}]
                   </span>
                 )}
                 {result.analysis.variance && (
