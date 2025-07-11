@@ -4,6 +4,9 @@ const path = require("path");
 const fs = require("fs");
 require("dotenv").config();
 
+const cors = require("cors");
+app.use(cors());
+
 // parse application/x-www-form-urlencoded for form
 app.use(express.urlencoded({ extended: true }));
 // parse application/json ~ http request to object
@@ -34,6 +37,6 @@ app.use("/file", FileRouter);
 const AnalyticRouter = require("./routers/AnalyticRouter");
 app.use("/analytic", AnalyticRouter);
 
-app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+app.listen(port, () => {
+  console.log(`Server running at port ${port}/`);
 });
