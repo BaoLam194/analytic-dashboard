@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "postinstall": "echo 'Running postinstall' && pip install -r localreq.txt"
+    "start": "node app.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
