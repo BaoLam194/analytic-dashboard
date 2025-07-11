@@ -13,9 +13,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const port = process.env.PORT || 3000;
-
+//"postinstall": "pip install -r localreq.txt", in package.json
 //File system control
 const FileRouter = require("./routers/FileRouter");
+
+app.get("/", (req, res) => {
+  res.send("App is live!");
+});
 
 app.use("/file", FileRouter);
 
