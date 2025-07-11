@@ -5,7 +5,12 @@ const fs = require("fs");
 require("dotenv").config();
 
 const cors = require("cors");
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", //  '*' for all origins
+    credentials: true,
+  })
+);
 
 // parse application/x-www-form-urlencoded for form
 app.use(express.urlencoded({ extended: true }));

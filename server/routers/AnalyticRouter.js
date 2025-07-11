@@ -13,7 +13,7 @@ router.post("/showheader", (req, res) => {
   const scriptPath = path.join(__dirname, "../middlewares/getheaders.py");
   const filePath = path.join(__dirname, `../user_data/${token}/${file}`); // have to change later
 
-  const pythonProcess = spawn(pythonPath, [scriptPath, filePath]);
+  const pythonProcess = spawn("python3", [scriptPath, filePath]);
   let result = "";
   pythonProcess.stdout.on("data", (data) => {
     result += data.toString();
@@ -50,7 +50,7 @@ router.post("/submitting", (req, res) => {
   console.log(newData);
   const args = JSON.stringify(newData);
 
-  const pythonProcess = spawn(pythonPath, [scriptPath, args]);
+  const pythonProcess = spawn("python3", [scriptPath, args]);
 
   let result = "";
   pythonProcess.stdout.on("data", (data) => {
