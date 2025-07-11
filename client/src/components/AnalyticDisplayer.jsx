@@ -2,6 +2,8 @@ import { useEffect, useState, useContext } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import styles from "./AnalyticDisplayer.module.css";
+
+const API_URL = import.meta.env.VITE_API_URL;
 export default function AnalyticBoard() {
   const { file } = useParams(); // current file from the browser url
   const { token } = useContext(UserContext);
@@ -48,7 +50,7 @@ export default function AnalyticBoard() {
         : { mode, varone, ana_option, visualization, fileName }; // data transfer
 
     try {
-      const response = await fetch("/api/analytic/submitting", {
+      const response = await fetch(`${API_URL}/analytic/submitting`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +74,7 @@ export default function AnalyticBoard() {
   useEffect(() => {
     async function fetchOptions() {
       try {
-        const res = await fetch("/api/analytic/showheader", {
+        const res = await fetch(`${API_URL}/analytic/showheader`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

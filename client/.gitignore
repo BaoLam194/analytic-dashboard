@@ -26,5 +26,6 @@ dist-ssr
 *.sw?
 
 
-#some weird files
+#some environment files
 .env
+.env.*

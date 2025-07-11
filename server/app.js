@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 // parse application/json ~ http request to object
 app.use(express.json());
 
-const hostname = "127.0.0.1";
+const hostname = "localhost";
 const port = 3000;
 let curUID; //userid
 
@@ -27,10 +27,7 @@ let curUID; //userid
 
 //File system control
 const FileRouter = require("./routers/FileRouter");
-app.get("/", (req, res) => {
-  console.log(req.session);
-  console.log("TESTING");
-});
+
 app.use("/file", FileRouter);
 
 // //Analysis control

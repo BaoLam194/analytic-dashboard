@@ -3,6 +3,7 @@ import DataUpload from "./DataUploading";
 import styles from "./DataUploading.module.css";
 import { UserContext } from "../UserContext";
 import { Link } from "react-router-dom";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function DataDisplayer({ validated }) {
   const { token } = useContext(UserContext);
@@ -11,7 +12,7 @@ export default function DataDisplayer({ validated }) {
   const [fileToDelete, setFileToDelete] = useState(null);
   const fetchFiles = async () => {
     try {
-      const res = await fetch("/api/file/show", {
+      const res = await fetch(`${API_URL}/file/show`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token.user.id}`,
@@ -40,7 +41,7 @@ export default function DataDisplayer({ validated }) {
   };
   const handleRemove = async (file) => {
     try {
-      const res = await fetch(`/api/file/delete/${file}`, {
+      const res = await fetch(`${API_URL}/file/delete/${file}`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token.user.id}`,
