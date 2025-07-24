@@ -1,6 +1,8 @@
 import { useState, useContext } from "react";
 import styles from "./DataUploading.module.css";
 import { UserContext } from "../UserContext";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 export default function DataUpload({ files, setFiles }) {
   const { token } = useContext(UserContext);
@@ -13,7 +15,7 @@ export default function DataUpload({ files, setFiles }) {
     e.preventDefault(); //
 
     if (!file) {
-      alert("Please select a file first.");
+      toast.error("Please select a file first.");
       return;
     }
 
@@ -37,13 +39,13 @@ export default function DataUpload({ files, setFiles }) {
         ? [...files].sort()
         : [...files, file.name].sort();
       setFiles(newFiles);
-      alert(result.message || "File uploaded");
+      toast.success(result.message || "File uploaded");
     } catch (err) {
       console.error("Upload failed:", err);
       if (err.name === "TypeError" && err.message === "Failed to fetch") {
-        alert("Please try again! Don't input unsupported files");
+        toast.error("Please try again! Don't input unsupported files");
       } else {
-        alert("Request failed: " + err.message);
+        toast.error("Request failed: " + err.message);
       }
     }
   };

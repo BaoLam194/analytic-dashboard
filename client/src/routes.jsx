@@ -1,8 +1,11 @@
 import ErrorPage from "./pages/ErrorPage";
 import Auth from "./pages/Auth/Auth";
-import ProtectedRoute from "./ProtectedRoute"; // protected route for dashboard
-import Dashboard from "./pages/Main/Dashboard";
-import AnalyticBoard from "./components/AnalyticDisplayer";
+import {
+  RedirectedProtectedRoute,
+  RedirectedProtectedNoRoute,
+  SafeRoute,
+} from "./ProtectedRoute"; // protected route for dashboard
+import AnalyticBoard from "./pages/Main/AnalyticDisplayer";
 
 // this is for testing
 // const routes = [
@@ -16,26 +19,34 @@ import AnalyticBoard from "./components/AnalyticDisplayer";
 const routes = [
   {
     path: "/",
-    element: (
-      <ProtectedRoute>
-        <Dashboard />
-      </ProtectedRoute>
-    ),
+    element: <SafeRoute />,
     errorElement: <ErrorPage />,
   },
   {
     path: "/auth/:name",
-    element: <Auth />,
+    element: (
+      <RedirectedProtectedRoute>
+        <Auth />
+      </RedirectedProtectedRoute>
+    ),
     errorElement: <ErrorPage />,
   },
   {
-    path: "/analytic",
-    element: <AnalyticBoard />,
+    path: "/analytic/",
+    element: (
+      <RedirectedProtectedNoRoute>
+        <AnalyticBoard />
+      </RedirectedProtectedNoRoute>
+    ),
     errorElement: <ErrorPage />,
   },
   {
     path: "/analytic/:file",
-    element: <AnalyticBoard />,
+    element: (
+      <RedirectedProtectedNoRoute>
+        <AnalyticBoard />
+      </RedirectedProtectedNoRoute>
+    ),
     errorElement: <ErrorPage />,
   },
 ];

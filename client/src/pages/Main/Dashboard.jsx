@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { UserContext } from "../../UserContext";
 import DataDisplayer from "../../components/DataDisplayer";
-
 import styles from "./Dashboard.module.css";
 import { Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 export default function Dashboard() {
   const { token, setToken } = useContext(UserContext);
@@ -43,6 +43,18 @@ export default function Dashboard() {
       </header>
 
       <DataDisplayer />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }

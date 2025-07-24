@@ -3,6 +3,8 @@ import DataUpload from "./DataUploading";
 import styles from "./DataUploading.module.css";
 import { UserContext } from "../UserContext";
 import { Link } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 export default function DataDisplayer({ validated }) {
   const { token } = useContext(UserContext);
@@ -27,6 +29,7 @@ export default function DataDisplayer({ validated }) {
 
       console.log(result);
     } catch (err) {
+      toast.error("Error fetching file info:", err);
       alert("Error fetching file info:", err);
     }
   };
@@ -52,7 +55,9 @@ export default function DataDisplayer({ validated }) {
       }
       const data = files.filter((thisFile) => thisFile !== file);
       setFiles(data);
+      toast.success("You have removed the file");
     } catch (err) {
+      toast.error("Error deleting file:", err.message);
       alert("Can not find file :" + err.message);
     } finally {
       setShowModal(false);
