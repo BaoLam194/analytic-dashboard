@@ -4,6 +4,7 @@ import { UserContext } from "../UserContext";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
+const API_URL = import.meta.env.VITE_API_URL;
 export default function DataUpload({ files, setFiles }) {
   const { token } = useContext(UserContext);
   const [file, setFile] = useState(null);
@@ -23,7 +24,7 @@ export default function DataUpload({ files, setFiles }) {
     formData.append("file", file);
 
     try {
-      const response = await fetch("/api/file/uploading", {
+      const response = await fetch(`${API_URL}/file/uploading`, {
         method: "POST",
         body: formData,
         headers: {

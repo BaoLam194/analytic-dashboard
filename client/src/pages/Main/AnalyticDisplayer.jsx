@@ -7,6 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 
+const API_URL = import.meta.env.VITE_API_URL; // for dev and production
+
 export default function AnalyticBoard() {
   const { file } = useParams(); // current file from the browser url
   const { token } = useContext(UserContext);
@@ -60,7 +62,7 @@ export default function AnalyticBoard() {
         : { mode, varone, ana_option, visualization, fileName }; // data transfer
 
     try {
-      const response = await fetch("/api/analytic/submitting", {
+      const response = await fetch(`${API_URL}/analytic/submitting`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -89,7 +91,7 @@ export default function AnalyticBoard() {
     async function fetchOptions() {
       setLeftLoading(true);
       try {
-        const res = await fetch("/api/analytic/showheader", {
+        const res = await fetch(`${API_URL}/analytic/showheader`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -451,10 +453,11 @@ export default function AnalyticBoard() {
             )}
             {!result.analysis && !result.visualization && (
               <div className={styles.advice}>
-                Do some analytics in the left!
                 {rightLoading ? (
                   <ClipLoader className={styles.spinItem} />
-                ) : null}
+                ) : (
+                  "Do some analytics in the left!"
+                )}
               </div>
             )}
           </div>
