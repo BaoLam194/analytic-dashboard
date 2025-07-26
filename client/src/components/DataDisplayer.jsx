@@ -28,6 +28,7 @@ export default function DataDisplayer({ validated }) {
       setFiles(result);
 
       console.log(result);
+      toast.success("File fetched successfully! File system is up to date!");
     } catch (err) {
       toast.error("Error fetching file info:", err);
       alert("Error fetching file info:", err);

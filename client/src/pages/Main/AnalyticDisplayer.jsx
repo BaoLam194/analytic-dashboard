@@ -18,9 +18,11 @@ export default function AnalyticBoard() {
   const [typeDefault, setTypeDefault] = useState("");
   const [result, setResult] = useState({}); //result from server
   const navigate = useNavigate(); //navigate ? : )
-
+  const [downloadType, setDownloadType] = useState("png");
+  //littlebit ui ux
   const [leftLoading, setLeftLoading] = useState(true);
   const [rightLoading, setRightLoading] = useState(false);
+
   //check if file
   useEffect(() => {
     if (!file) {
@@ -58,7 +60,7 @@ export default function AnalyticBoard() {
         : { mode, varone, ana_option, visualization, fileName }; // data transfer
 
     try {
-      const response = await fetch("/failapi/analytic/submitting", {
+      const response = await fetch("/api/analytic/submitting", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -167,7 +169,11 @@ export default function AnalyticBoard() {
           {leftLoading ? (
             <div className={styles.spinContainer}>
               <PacmanLoader />
-              {rightLoading ? <div>Analyzing....</div> : null}
+              {rightLoading ? (
+                <div>Analyzing....</div>
+              ) : (
+                <div>Fetching options</div>
+              )}
             </div>
           ) : (
             <form onSubmit={handleSubmit} className={styles.formContainer}>
@@ -413,16 +419,35 @@ export default function AnalyticBoard() {
                 <span>Frequency: {result.analysis.freq}</span>
               </div>
             )}
-            {result.visualization ? (
-              <div className={styles.visualBox}>
-                <img
-                  src={result.visualization}
-                  alt="graph"
-                  className={styles.graphImage}
-                ></img>
-              </div>
-            ) : (
-              <></>
+            {result.visualization && (
+              <>
+                <div className={styles.visualBox}>
+                  <img
+                    src={result.visualization}
+                    alt="graph"
+                    className={styles.graphImage}
+                  ></img>
+                </div>
+                <div>
+                  <select
+                    className={styles.selectStyled}
+                    onChange={(e) => {
+                      setDownloadType(e.target.value);
+                    }}
+                  >
+                    <option value="png">PNG</option>
+                    <option value="jpg">JPG</option>
+                    <option value="jpeg">JPEG</option>
+                  </select>
+                  <a
+                    href={result.visualization}
+                    download={`graph.${downloadType}`}
+                    className={styles.downloadButton}
+                  >
+                    Download Image
+                  </a>
+                </div>
+              </>
             )}
             {!result.analysis && !result.visualization && (
               <div className={styles.advice}>
@@ -438,7 +463,6 @@ export default function AnalyticBoard() {
       <ToastContainer
         position="top-right"
         autoClose={5000}
-        hideProgressBar={true}
         newestOnTop={false}
         closeOnClick={false}
         rtl={false}
