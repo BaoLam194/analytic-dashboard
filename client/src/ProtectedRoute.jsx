@@ -25,7 +25,6 @@ function RedirectedProtectedRoute({ children }) {
   const navigate = useNavigate();
   useEffect(() => {
     if (token) {
-      console.log("Fk yeah");
       navigate("/"); // redirect to dashboard if no token
     }
   }, [token, navigate]);
