@@ -40,11 +40,6 @@
     color: white;
 }
 
-.btn-black:hover {
-    background-color: #333;
-}
-
-
 
 .nav-link {
     display: flex;
@@ -54,4 +49,97 @@
 .nav-child {
     margin-right: 20px;
     margin-left: 20px;
+}
+
+/* Trolling section */
+.troll-aboutSection {
+    background-color: #13a58d;
+    color: #fff;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.troll-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.troll-container h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.troll-container p {
+    margin-bottom: 3rem;
+    font-size: 1rem;
+    color: #e0e0e0;
+}
+
+.troll-cardRow {
+    display: flex;
+    justify-content: center;
+    gap: 10rem;
+    flex-wrap: wrap;
+}
+
+.troll-card {
+    background-color: #fff;
+    color: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 300px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.troll-imageBox {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+.troll-imageBox img {
+    width: 100%;
+    display: block;
+}
+
+.troll-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.troll-overlay a {
+    color: #fff;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.troll-infoBox {
+    padding: 1.5rem 1rem;
+    text-align: center;
+}
+
+.troll-infoBox h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.troll-infoBox span {
+    display: block;
+    font-style: italic;
+    color: #777;
+    margin-bottom: 1rem;
+}
+
+.troll-infoBox p {
+    font-size: 0.9rem;
+    color: #333;
 }

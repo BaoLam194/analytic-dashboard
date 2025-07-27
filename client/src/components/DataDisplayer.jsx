@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
+// Troll section
+
 const API_URL = import.meta.env.VITE_API_URL;
 export default function DataDisplayer({ validated }) {
   const { token } = useContext(UserContext);
@@ -68,58 +70,63 @@ export default function DataDisplayer({ validated }) {
   };
   return (
     <>
-      <div className={styles.container}>
-        <div className={styles.topRow}>
-          <DataUpload files={files} setFiles={setFiles} />
-          <button onClick={fetchFiles} className={styles.refreshButton}>
-            Refresh
-          </button>
+      <div className={styles.wrapper}>
+        <div className={styles.centerText}>
+          Upload file here to using the analytic board
         </div>
-        {files && files.length > 0 ? ( // Empty arrays are TRUE in JS :))))
-          <ul className={styles.fileList}>
-            {files.map((file, index) => (
-              <li key={index} className={styles.fileItem}>
-                <span title={file}>{file}</span>
-                <div className={styles["nav-btn"]}>
-                  <Link to={`/analytic/${file}`}>
-                    <img src="/analysis-go.svg" alt="logo" />
-                  </Link>
+        <div className={styles.container}>
+          <div className={styles.topRow}>
+            <DataUpload files={files} setFiles={setFiles} />
+            <button onClick={fetchFiles} className={styles.refreshButton}>
+              Refresh
+            </button>
+          </div>
+          {files && files.length > 0 ? ( // Empty arrays are TRUE in JS :))))
+            <ul className={styles.fileList}>
+              {files.map((file, index) => (
+                <li key={index} className={styles.fileItem}>
+                  <span title={file}>{file}</span>
+                  <div className={styles["nav-btn"]}>
+                    <Link to={`/analytic/${file}`}>
+                      <img src="/analysis-go.svg" alt="logo" />
+                    </Link>
+                    <button
+                      className={styles.removeButton}
+                      onClick={() => confirmRemove(file)}
+                    >
+                      X
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div>Nothing found!</div>
+          )}
+          {showModal && (
+            <div className={styles.modalOverlay}>
+              <div className={styles.modal}>
+                <p>Are you sure you want to delete "{fileToDelete}"?</p>
+                <div className={styles.modalButtons}>
                   <button
-                    className={styles.removeButton}
-                    onClick={() => confirmRemove(file)}
+                    onClick={() => handleRemove(fileToDelete)}
+                    className={styles.confirmButton}
                   >
-                    X
+                    Yes
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowModal(false);
+                      setFileToDelete(null);
+                    }}
+                  >
+                    Cancel
                   </button>
                 </div>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <div>Nothing found!</div>
-        )}
-        {showModal && (
-          <div className={styles.modalOverlay}>
-            <div className={styles.modal}>
-              <p>Are you sure you want to delete "{fileToDelete}"?</p>
-              <div className={styles.modalButtons}>
-                <button
-                  onClick={() => handleRemove(fileToDelete)}
-                  className={styles.confirmButton}
-                >
-                  Yes
-                </button>
-                <button
-                  onClick={() => {
-                    setShowModal(false);
-                    setFileToDelete(null);
-                  }}
-                >
-                  Cancel
-                </button>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </>
   );
