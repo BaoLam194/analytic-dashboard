@@ -3,6 +3,7 @@ import { useState, useContext } from "react";
 import supabase from "../../client";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext";
+import { Helmet } from "react-helmet";
 
 export default function LogIn() {
   const [formData, setFormData] = useState({
@@ -43,6 +44,9 @@ export default function LogIn() {
 
   return (
     <>
+      <Helmet>
+        <title>Log in</title>
+      </Helmet>
       {loading && (
         <div className={styles["popup-overlay"]}>
           <div className={styles.popup}>

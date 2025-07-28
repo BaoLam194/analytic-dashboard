@@ -4,6 +4,7 @@ import DataDisplayer from "../../components/DataDisplayer";
 import styles from "./Dashboard.module.css";
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 import person1 from "/oggy.jpg";
 import person2 from "/luffy.webp";
@@ -30,6 +31,9 @@ export default function Dashboard() {
 
   return (
     <div className={styles.wrapper}>
+      <Helmet>
+        <title>Dashboard</title>
+      </Helmet>
       <header>
         <nav>
           <Link to="/" className={styles.icon}>

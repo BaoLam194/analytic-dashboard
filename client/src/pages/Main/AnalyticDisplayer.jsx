@@ -6,6 +6,7 @@ import { PacmanLoader, ClipLoader } from "react-spinners";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 const API_URL = import.meta.env.VITE_API_URL; // for dev and production
 
@@ -129,6 +130,9 @@ export default function AnalyticBoard() {
   }, []);
   return (
     <div className={styles.wrapper}>
+      <Helmet>
+        <title>{`Analyzing ${file}`}</title>
+      </Helmet>
       {/* Modal only  */}
       {modal && (
         <div className={styles.modalOverlay}>
