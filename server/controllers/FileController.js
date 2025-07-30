@@ -16,7 +16,7 @@ const uploadFile = async (req, res, next) => {
     console.log(token + " sent a file");
     console.log(req.file);
     const message = req.overwritten
-      ? "File overwritten successfully"
+      ? "File got overwritten successfully"
       : "File uploaded successfully";
     res.json({ message });
   });

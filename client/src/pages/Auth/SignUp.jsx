@@ -2,7 +2,7 @@ import styles from "./Auth.module.css";
 import { useState } from "react";
 import supabase from "../../client";
 import { useNavigate } from "react-router-dom";
-
+import { Helmet } from "react-helmet";
 export default function SignUp() {
   const [formData, setFormData] = useState({
     //data state
@@ -44,6 +44,9 @@ export default function SignUp() {
 
   return (
     <>
+      <Helmet>
+        <title>Sign up</title>
+      </Helmet>
       {loading && (
         <div className={styles["popup-overlay"]}>
           <div className={styles.popup}>

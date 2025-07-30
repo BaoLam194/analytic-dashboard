@@ -97,7 +97,7 @@
     margin-right: auto;
 }
 
-div>div>div {
+.flex>div>div {
     margin-bottom: 19px;
 }
 

@@ -1,11 +1,15 @@
 import styles from "./Home.module.css";
 import { Link } from "react-router-dom";
 import Card from "../components/Card";
+import { Helmet } from "react-helmet";
 
 // This page is for the introduction / not-logged-in view
 export default function Home() {
   return (
     <>
+      <Helmet>
+        <title>Home Page</title>
+      </Helmet>
       <header>
         <nav>
           <Link to="/" className={styles.icon}>
@@ -41,7 +45,7 @@ export default function Home() {
         </section>
 
         <section className={styles.mainbtn}>
-          <Link to="/">
+          <Link to="/auth/signup">
             <button className={`${styles.btn} ${styles["btn-black"]}`}>
               Get started now!
             </button>
@@ -57,32 +61,32 @@ export default function Home() {
           <h1 className={styles.featuretitle}>Powerful features</h1>
           <div className={styles.cardcontainer}>
             <Card
-              source="/vite.svg"
+              source="/card1.svg"
               title="Data Upload"
               description="Upload CSV and Excel files with drag-and-drop support"
             />
             <Card
-              source="/vite.svg"
+              source="/card2.svg"
               title="Data Transformation"
               description="Clean, format, and reshape your data to make it analysis-ready with just a few clicks"
             />
             <Card
-              source="/vite.svg"
+              source="/card3.svg"
               title="Visualization"
               description="Create beautiful charts and graphs from your data"
             />
             <Card
-              source="/vite.svg"
+              source="/card4.svg"
               title="Dataset Management"
               description="Save and manage multiple versions of your datasets"
             />
             <Card
-              source="/vite.svg"
+              source="/card5.svg"
               title="User Authentication"
               description="Secure login and user management system"
             />
             <Card
-              source="/vite.svg"
+              source="/card6.svg"
               title="Advanced Analytics"
               description="Statistical analysis and data insights"
             />

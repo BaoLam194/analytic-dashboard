@@ -67,6 +67,26 @@ body {
     border: 1px solid #e0e0e0;
     background-color: #f9f9f9;
     box-sizing: border-box;
+
+}
+
+.spinContainer {
+    flex: 0 0 25%;
+    margin: 20px 0;
+    margin-left: 1.33%;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    justify-items: center;
+}
+
+.spinContainer div {
+    font-size: 20px;
+}
+
+.resultContainer .spinItem {
+    display: block !important;
 }
 
 .formGroup {
@@ -166,6 +186,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-items: center;
     box-sizing: border-box;
     min-height: 400px;
 }
@@ -201,4 +222,45 @@ body {
 .advice {
     font-size: 30px;
     font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Download button */
+.downloadButton {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 16px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.downloadButton:hover {
+    background-color: #0056b3;
+}
+
+/* Change format for download butotn */
+
+.selectStyled {
+    padding: 10px 12px;
+    background-color: white;
+    color: #007bff;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+
+    margin-right: 10px;
+    transition: background-color 0.2s;
+}
+
+.selectStyled:hover {
+    background-color: #72b6ff;
+    color: red;
 }
