@@ -34,6 +34,29 @@ router.post("/showheader", (req, res) => {
   });
 });
 
+const { GoogleGenAI } = require("@google/genai");
+const ai = new GoogleGenAI({});
+
+async function callAI(prompt) {
+  const response = await ai.models.generateContent({
+    model: "gemini-2.5-flash",
+    contents: prompt,
+  });
+  return response.text;
+}
+
+function genPrompt(data) {
+  if (data.mode == "univariate") {
+    const data_one = data.varone.split(" ")[0];
+    const type_one = data.varone.split(" ")[1];
+    const visual = data.visualization;
+    const analysisData = data.analysis;
+    if (type_one == "numerical") {
+      return `Summarize in a detailed paragraph with less than 100 words about the univariate analysis of ${data_one} (${type_one}). The data has a total of ${analysisData.count} columns, the 5 number summary is min = ${analysisData.min}, max =${analysisData.max}, 25% = ${analysisData["25%"]}, 50% = ${analysisData["50%"]}, 75% = ${analysisData["75%"]}. Then analyzing this graph in base64 built from that dataset: ${visual}`;
+    }
+  }
+}
+
 router.post("/submitting", (req, res) => {
   //get user infomation
   const token = req.headers["authorization"]?.split(" ")[1]; // "Bearer <token>"
@@ -61,13 +84,20 @@ router.post("/submitting", (req, res) => {
     console.error(`stderr: ${data}`);
   });
 
-  pythonProcess.on("close", (code) => {
+  pythonProcess.on("close", async (code) => {
     try {
       const data = JSON.parse(result);
+      const promptDataObject = { ...newData, ...data };
+      console.log(promptDataObject);
+      const promptData = genPrompt(promptDataObject);
+      console.log("Here is my AI XD");
+      const AIText = await callAI(promptData);
+      console.log(promptData);
+      console.log("-------------------------TESTING TESTING :>");
       console.log("Closing and");
-      console.log(data); // data too long
-
-      res.json(data);
+      const newestdata = { ...data, AIText: AIText };
+      console.log(newestdata); // data too long
+      res.json(newestdata);
     } catch (error) {
       console.error("Python script error:", error);
       res.status(500).json({ error: "Failed to parse headers" });

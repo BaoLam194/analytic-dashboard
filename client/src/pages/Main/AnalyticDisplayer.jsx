@@ -194,6 +194,7 @@ export default function AnalyticBoard() {
                       setMode("univariate");
                       setTypeTwo("");
                     }}
+                    defaultChecked={mode == "univariate" ? true : false}
                   />
                   Univariate
                 </label>
@@ -206,6 +207,7 @@ export default function AnalyticBoard() {
                       setMode("bivariate");
                       setTypeTwo(typeDefault);
                     }}
+                    defaultChecked={mode == "bivariate" ? true : false}
                   />
                   Bivariate
                 </label>
@@ -216,7 +218,7 @@ export default function AnalyticBoard() {
                 <select
                   className={styles.selectInput}
                   name="varone"
-                  defaultValue={options[0]} // selects the second option by default to trigger the state
+                  defaultValue={options[0]}
                   onChange={(e) => setTypeOne(e.target.value.split(" ")[1])}
                 >
                   {options.map((opt, idx) => (
@@ -463,6 +465,14 @@ export default function AnalyticBoard() {
                   "Do some analytics in the left!"
                 )}
               </div>
+            )}
+            {result.visualization && (
+              <>
+                <div className={styles.analysisBox}>
+                  <h1>Summary</h1>
+                  <p>{result.AIText}</p>
+                </div>
+              </>
             )}
           </div>
         </div>
